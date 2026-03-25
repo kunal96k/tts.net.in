@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Workshops | TechnoKraft Nashik</title>
+    <link rel="icon" type="image/png" href="images/tts_logo.png">
+    <meta name="description"
+        content="Attend TechnoKraft's upcoming IT workshops, hackathons, and seminars in Nashik. Power BI, GenAI, and career events every month.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tts.net.in/events.html">
+    <meta property="og:title" content="Events & Workshops | TechnoKraft Nashik">
+    <meta property="og:description" content="Best IT Training Institute in Nashik">
+    <meta property="og:image" content="https://tts.net.in/images/tts_logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tts.net.in/events.html">
+    <meta property="twitter:title" content="Events & Workshops | TechnoKraft Nashik">
+    <meta property="twitter:description" content="Best IT Training Institute in Nashik">
+    <meta property="twitter:image" content="https://tts.net.in/images/tts_logo.png">
+    
+    <link rel="canonical" href="https://tts.net.in/events.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Sanchez&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+
+        .event-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 22px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .event-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .event-header {
+            padding: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .event-date-box {
+            background: var(--primary);
+            border-radius: 14px;
+            padding: 10px 14px;
+            text-align: center;
+            color: #fff;
+            flex-shrink: 0;
+            min-width: 56px;
+        }
+
+        .event-date-box .day {
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1;
+            font-family: var(--font-heading);
+        }
+
+        .event-date-box .month {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .event-info h3 {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .event-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 6px;
+        }
+
+        .event-tag.upcoming {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .event-tag.live {
+            background: rgba(229, 57, 53, 0.1);
+            color: #E53935;
+        }
+
+        .event-tag.past {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
+        .event-body {
+            padding: 20px 24px 24px;
+        }
+
+        .event-detail-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .event-detail-row ion-icon {
+            color: var(--primary);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn-register {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 9px 22px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-register:hover {
+            background: #b71c1c;
+        }
+
+        .btn-details {
+            background: none;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 9px 22px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-details:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .event-section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .event-section-title h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .event-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .event-dot.green {
+            background: #4CAF50;
+        }
+
+        .event-dot.red {
+            background: #E53935;
+        }
+
+        .event-dot.gray { background: var(--text-muted); }
+        /* Event Modal */
+        .evt-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .evt-modal-backdrop.open { opacity: 1; pointer-events: all; }
+        .evt-modal { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 24px; max-width: 580px; width: 94vw; overflow: hidden; transform: scale(0.88); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; }
+        .evt-modal-backdrop.open .evt-modal { transform: scale(1); }
+        .evt-modal-hero { padding: 32px; background: linear-gradient(135deg, #080e1a 0%, #152040 100%); position: relative; }
+        .evt-modal-hero h2 { font-size: 22px; font-weight: 800; color: #fff; margin: 0 0 10px; line-height: 1.3; }
+        .evt-modal-close { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; font-size: 20px; transition: all 0.2s; }
+        .evt-modal-close:hover { background: var(--primary); border-color: var(--primary); }
+        .evt-modal-date-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(229,57,53,0.15); border: 1px solid rgba(229,57,53,0.3); border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+        .evt-modal-body { padding: 28px 32px 32px; }
+        .evt-section-hd { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin: 22px 0 12px; }
+        .evt-detail-row { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-secondary); margin-bottom: 10px; }
+        .evt-detail-row ion-icon { color: var(--primary); font-size: 18px; flex-shrink: 0; }
+        .evt-agenda { list-style: none; padding: 0; margin: 0; }
+        .evt-agenda li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; color: var(--text-secondary); }
+        .evt-agenda li:last-child { border-bottom: none; }
+        .evt-agenda li::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: 6px; }
+        .evt-modal-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+        .btn-evt-register { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; border: none; border-radius: 20px; padding: 12px 26px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-evt-register:hover { background: #b71c1c; color: #fff; }
+        .btn-evt-share { display: inline-flex; align-items: center; gap: 8px; background: none; border: 1px solid var(--border-light); border-radius: 20px; padding: 12px 26px; font-size: 14px; font-weight: 700; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+        .btn-evt-share:hover { border-color: var(--primary); color: var(--primary); }
+    </style>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader-content">
+            <div class="logo-box" style="justify-content:center;margin-bottom:20px"><img src="images/tts_logo.png"
+                    alt="TechnoKraft Logo">
+                <div class="brand-text"><span class="brand-main">TechnoKraft</span><span class="brand-sub">Training &
+                        Solution Pvt. Ltd.</span></div>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-progress" id="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-progress"></div>
+    <div class="scene-3d">
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+    </div>
+    <div class="grid-pattern"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-box">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text">
+                    <span class="brand-main">TechnoKraft</span>
+                    <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                </div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <div class="sidebar-logo">
+                    <div class="logo-box">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="index.html">Home</a>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Courses</a>
+                    <div class="dropdown-menu">
+                        <a href="courses.html">All Courses</a>
+
+                        <span class="dropdown-header">[ Short Learning ]</span>
+                        <a href="crash-courses.html">Crash Courses</a>
+                        <a href="workshops.html">Workshops</a>
+                        <a href="sessions-seminars.html">Sessions & Seminars</a>
+                        <div class="sub-menu">
+                            <a href="career-guidance.html">Career Guidance Sessions</a>
+                            <a href="resume-building.html">Resume Building Sessions</a>
+                            <a href="interview-preparation.html">Interview Preparation</a>
+                        </div>
+
+                        <span class="dropdown-header">[ Programs ]</span>
+                        <a href="certification-programs.html">Certification Programs</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Students</a>
+                    <div class="dropdown-menu">
+                        <a href="placements.html">Placed Students</a>
+                        <a href="certifications.html">Certified Students</a>
+                        <a href="testimonials.html">Student Testimonials</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle active">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="blogs.html">Blogs</a>
+                        <a href="events.html" class="active">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="jobs.html">Jobs</a>
+                        <a href="videos.html">Videos</a>
+                        <a href="top-institutes.html">Top Institutes in Nashik</a>
+                    </div>
+                </div>
+
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Counseling</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="section-label reveal-smooth">Live & Upcoming Events</div>
+            <h1 class="reveal-scale">IT Workshops & <span class="shimmer-text">Events</span></h1>
+            <p class="reveal-smooth">Join our expert-led workshops, seminars, and hackathons designed to accelerate your
+                IT career in Nashik and beyond.</p>
+        </div>
+    </section>
+
+    <section class="services-section" style="padding-top:60px">
+        <div class="container">
+            <div class="event-section-title reveal-smooth">
+                <div class="event-dot green"></div>
+                <h3>Upcoming Events</h3>
+            </div>
+            <div class="event-grid" style="margin-bottom:60px">
+                <div class="event-card reveal-smooth">
+                    <div class="event-header">
+                        <div class="event-date-box">
+                            <div class="day">15</div>
+                            <div class="month">Apr</div>
+                        </div>
+                        <div class="event-info">
+                            <div class="event-tag upcoming">Upcoming</div>
+                            <h3>Power BI Masterclass Workshop</h3>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-detail-row"><ion-icon name="time-outline"></ion-icon> 10:00 AM – 5:00 PM</div>
+                        <div class="event-detail-row"><ion-icon name="location-outline"></ion-icon> TechnoKraft Campus,
+                            Nashik</div>
+                        <div class="event-detail-row"><ion-icon name="people-outline"></ion-icon> 50 Seats Available
+                        </div>
+                        <div class="event-detail-row"><ion-icon name="cash-outline"></ion-icon> ₹499 (Free for Enrolled
+                            Students)</div>
+                        <div class="event-actions">
+                            <a href="contact.html" class="btn-register">Register Now</a>
+                            <button class="btn-details evt-learn-more"
+                                data-title="Power BI Masterclass Workshop"
+                                data-date="15 April 2026"
+                                data-time="10:00 AM – 5:00 PM"
+                                data-venue="TechnoKraft Campus, College Road, Nashik"
+                                data-seats="50"
+                                data-fee="₹499 (Free for TTS Enrolled Students)"
+                                data-speaker="Mr. Rahul Mahajan — Senior BI Architect, Persistent Systems"
+                                data-agenda="Introduction to Power BI & Business Intelligence|Connecting Data Sources (Excel, SQL, APIs)|Building Interactive Dashboards & Reports|DAX Formulas & Calculated Columns|Publishing to Power BI Service|Live Q&A and Hands-on Practice">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal-smooth">
+                    <div class="event-header">
+                        <div class="event-date-box">
+                            <div class="day">22</div>
+                            <div class="month">Apr</div>
+                        </div>
+                        <div class="event-info">
+                            <div class="event-tag upcoming">Upcoming</div>
+                            <h3>Generative AI for Beginners</h3>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-detail-row"><ion-icon name="time-outline"></ion-icon> 11:00 AM – 4:00 PM</div>
+                        <div class="event-detail-row"><ion-icon name="location-outline"></ion-icon> TechnoKraft Campus,
+                            Nashik</div>
+                        <div class="event-detail-row"><ion-icon name="people-outline"></ion-icon> 40 Seats Available
+                        </div>
+                        <div class="event-detail-row"><ion-icon name="cash-outline"></ion-icon> ₹299 (Free for TTS
+                            Students)</div>
+                        <div class="event-actions">
+                            <a href="contact.html" class="btn-register">Register Now</a>
+                            <button class="btn-details evt-learn-more"
+                                data-title="Generative AI for Beginners"
+                                data-date="22 April 2026"
+                                data-time="11:00 AM – 4:00 PM"
+                                data-venue="TechnoKraft Campus, College Road, Nashik"
+                                data-seats="40"
+                                data-fee="₹299 (Free for TTS Students)"
+                                data-speaker="Mr. Nikhil Shah — AI Engineer & GenAI Consultant"
+                                data-agenda="What is Generative AI & Large Language Models|ChatGPT & Prompt Engineering Masterclass|Introduction to LangChain Framework|Building Your First AI Application|AI Tools for Developers: Copilot, Gemini & more|Live Demo and Q&A Session">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal-smooth">
+                    <div class="event-header">
+                        <div class="event-date-box" style="background:#2196F3">
+                            <div class="day">10</div>
+                            <div class="month">May</div>
+                        </div>
+                        <div class="event-info">
+                            <div class="event-tag upcoming">Upcoming</div>
+                            <h3>Resume & Career Fair 2026</h3>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-detail-row"><ion-icon name="time-outline"></ion-icon> 9:00 AM – 6:00 PM</div>
+                        <div class="event-detail-row"><ion-icon name="location-outline"></ion-icon> Hotel Taj Siddhi
+                            Vinayak, Nashik</div>
+                        <div class="event-detail-row"><ion-icon name="people-outline"></ion-icon> 200+ Students Expected
+                        </div>
+                        <div class="event-detail-row"><ion-icon name="cash-outline"></ion-icon> Free Entry for TTS
+                            Students</div>
+                        <div class="event-actions">
+                            <a href="contact.html" class="btn-register">Register Now</a>
+                            <button class="btn-details evt-learn-more"
+                                data-title="Resume & Career Fair 2026"
+                                data-date="10 May 2026"
+                                data-time="9:00 AM – 6:00 PM"
+                                data-venue="Hotel Taj Siddhi Vinayak, Nashik"
+                                data-seats="200+"
+                                data-fee="Free for TTS Students | ₹99 for Others"
+                                data-speaker="10 Industry Experts from TCS, Infosys, Wipro, HCL & more"
+                                data-agenda="Resume Review with HR Professionals|Mock HR Interview Rounds|1-on-1 Career Counseling Sessions|Company Stalls & Job Application Booths|Salary Negotiation Workshop|Networking Lunch with Industry Mentors">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-section-title reveal-smooth">
+                <div class="event-dot gray"></div>
+                <h3>Past Events</h3>
+            </div>
+            <div class="event-grid">
+                <div class="event-card reveal-smooth" style="opacity:0.7">
+                    <div class="event-header">
+                        <div class="event-date-box" style="background:var(--text-muted)">
+                            <div class="day">12</div>
+                            <div class="month">Mar</div>
+                        </div>
+                        <div class="event-info">
+                            <div class="event-tag past">Completed</div>
+                            <h3>Python Automation Workshop</h3>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-detail-row"><ion-icon name="time-outline"></ion-icon> 10:00 AM – 4:00 PM</div>
+                        <div class="event-detail-row"><ion-icon name="people-outline"></ion-icon> 65 Attendees</div>
+                        <div class="event-detail-row"><ion-icon name="star"></ion-icon> Rated 4.9/5 by Participants
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal-smooth" style="opacity:0.7">
+                    <div class="event-header">
+                        <div class="event-date-box" style="background:var(--text-muted)">
+                            <div class="day">02</div>
+                            <div class="month">Mar</div>
+                        </div>
+                        <div class="event-info">
+                            <div class="event-tag past">Completed</div>
+                            <h3>Campus Seminar — YCMOU Nashik</h3>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <div class="event-detail-row"><ion-icon name="time-outline"></ion-icon> 11:00 AM – 2:00 PM</div>
+                        <div class="event-detail-row"><ion-icon name="people-outline"></ion-icon> 120 Students Attended
+                        </div>
+                        <div class="event-detail-row"><ion-icon name="star"></ion-icon> AI & Web Dev Career Guidance
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <h2>Never Miss an <span class="gradient-text">Event</span></h2>
+                <p>Register your interest and we'll notify you about upcoming workshops and seminars.</p><a
+                    href="contact.html" class="btn-primary">Notify Me</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-box" style="margin-bottom: 20px;">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </a>
+                    <p>TechnoKraft Training & Solution Pvt. Ltd. is dedicated to building high-impact tech careers with
+                        integrity, transparency, and a 100% placement guarantee.</p>
+
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/tts.net.in/" target="_blank" aria-label="Facebook"><ion-icon
+                                name="logo-facebook"></ion-icon></a>
+                        <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank"
+                            aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="https://www.linkedin.com/company/ttsnashik/" target="_blank"
+                            aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://www.youtube.com/@technokraft-tts455" target="_blank"
+                            aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Courses</h4>
+                    <a href="courses.html#full-stack">Java Full Stack</a>
+                    <a href="courses.html#data-science">Data Science & AI</a>
+                    <a href="courses.html#devops">DevOps / Cloud</a>
+                    <a href="courses.html#web-dev">Web Development</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">
+                        <ion-icon name="location-outline"></ion-icon> 1st Floor, Kanchwala Avenue, Above Viju’s Dabeli,
+                        Thatte Nagar Marg, College Road, Nashik, Maharashtra 422005, India
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="call-outline"></ion-icon> +91-8645628278
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="mail-outline"></ion-icon> info@tts.net.in
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px;">
+                        <ion-icon name="time-outline"></ion-icon> 09:30 am - 08:30 pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="index.html" style="color: inherit; text-decoration: none;">TechnoKraft
+                        Training & Solution Pvt. Ltd.</a> All rights reserved. | Krafting Your Skills</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script>
+    // Event Detail Modal
+    const evtModal = document.createElement('div');
+    evtModal.className = 'evt-modal-backdrop';
+    evtModal.id = 'evtModal';
+    evtModal.innerHTML = `
+        <div class="evt-modal">
+            <div class="evt-modal-hero">
+                <div class="evt-modal-date-badge"><ion-icon name="calendar-outline"></ion-icon> <span id="emDate">Date</span></div>
+                <h2 id="emTitle">Event Title</h2>
+                <button class="evt-modal-close" id="emClose"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="evt-modal-body">
+                <div class="evt-section-hd">Event Details</div>
+                <div class="evt-detail-row"><ion-icon name="time-outline"></ion-icon> <span id="emTime">Time</span></div>
+                <div class="evt-detail-row"><ion-icon name="location-outline"></ion-icon> <span id="emVenue">Venue</span></div>
+                <div class="evt-detail-row"><ion-icon name="people-outline"></ion-icon> <span id="emSeats">Seats</span> seats available</div>
+                <div class="evt-detail-row"><ion-icon name="cash-outline"></ion-icon> <span id="emFee">Fee</span></div>
+                <div class="evt-section-hd">Speaker / Trainer</div>
+                <div class="evt-detail-row"><ion-icon name="person-outline"></ion-icon> <span id="emSpeaker">Speaker</span></div>
+                <div class="evt-section-hd">Workshop Agenda</div>
+                <ul class="evt-agenda" id="emAgenda"></ul>
+                <div class="evt-modal-actions">
+                    <a href="contact.html" class="btn-evt-register"><ion-icon name="checkmark-circle-outline"></ion-icon> Register Now</a>
+                    <button class="btn-evt-share" onclick="navigator.share&&navigator.share({title:document.getElementById('emTitle').textContent,url:window.location.href})"><ion-icon name="share-social-outline"></ion-icon> Share</button>
+                </div>
+            </div>
+        </div>`;
+    document.body.appendChild(evtModal);
+
+    document.querySelectorAll('.evt-learn-more').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('emTitle').textContent  = btn.dataset.title;
+            document.getElementById('emDate').textContent   = btn.dataset.date;
+            document.getElementById('emTime').textContent   = btn.dataset.time;
+            document.getElementById('emVenue').textContent  = btn.dataset.venue;
+            document.getElementById('emSeats').textContent  = btn.dataset.seats;
+            document.getElementById('emFee').textContent    = btn.dataset.fee;
+            document.getElementById('emSpeaker').textContent= btn.dataset.speaker;
+            const items = btn.dataset.agenda.split('|');
+            document.getElementById('emAgenda').innerHTML   = items.map(i=>`<li>${i}</li>`).join('');
+            evtModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    document.getElementById('emClose').addEventListener('click', ()=>{ evtModal.classList.remove('open'); document.body.style.overflow=''; });
+    evtModal.addEventListener('click', e=>{ if(e.target===evtModal){ evtModal.classList.remove('open'); document.body.style.overflow=''; } });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ evtModal.classList.remove('open'); document.body.style.overflow=''; } });
+    </script>
+</body>
+
+</html>

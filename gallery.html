@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | TechnoKraft Nashik Campus & Events</title>
+    <link rel="icon" type="image/png" href="images/tts_logo.png">
+    <meta name="description" content="Explore TechnoKraft's photo gallery — campus life, workshops, seminars, placement drives, and student celebrations in Nashik.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tts.net.in/gallery.html">
+    <meta property="og:title" content="Gallery | TechnoKraft Nashik Campus & Events">
+    <meta property="og:description" content="Explore TechnoKraft's photo gallery — campus life, workshops, seminars, placement drives, and student celebrations in Nashik.">
+    <meta property="og:image" content="https://tts.net.in/images/tts_logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tts.net.in/gallery.html">
+    <meta property="twitter:title" content="Gallery | TechnoKraft Nashik Campus & Events">
+    <meta property="twitter:description" content="Explore TechnoKraft's photo gallery — campus life, workshops, seminars, placement drives, and student celebrations in Nashik.">
+    <meta property="twitter:image" content="https://tts.net.in/images/tts_logo.png">
+    
+    <link rel="canonical" href="https://tts.net.in/gallery.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Sanchez&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/premium.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        /* ===== FILTER BAR ===== */
+        .gallery-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+        .gal-filter { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 20px; padding: 9px 22px; font-size: 13px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all 0.22s; font-family: var(--font-body); }
+        .gal-filter.active, .gal-filter:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* ===== GALLERY GRID ===== */
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        @media(max-width:900px){ .gallery-grid { grid-template-columns: repeat(3,1fr); } }
+        @media(max-width:600px){ .gallery-grid { grid-template-columns: repeat(2,1fr); } }
+        .gal-item { border-radius: 18px; overflow: hidden; aspect-ratio: 1; position: relative; cursor: pointer; transition: transform 0.3s; }
+        .gal-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
+        .gal-item:hover { transform: scale(1.02); }
+        .gal-item.hidden { display: none; }
+
+        /* Gradient backgrounds replacing emojis */
+        .g1{ background: linear-gradient(135deg, #1a0808 0%, #3d1515 100%); }
+        .g2{ background: linear-gradient(135deg, #080e1a 0%, #152040 100%); }
+        .g3{ background: linear-gradient(135deg, #081a0a 0%, #153620 100%); }
+        .g4{ background: linear-gradient(135deg, #1a1508 0%, #3d3215 100%); }
+        .g5{ background: linear-gradient(135deg, #12081a 0%, #291540 100%); }
+        .g6{ background: linear-gradient(135deg, #08181a 0%, #153d40 100%); }
+        .g7{ background: linear-gradient(135deg, #1a1008 0%, #3d2c15 100%); }
+        .g8{ background: linear-gradient(135deg, #0a081a 0%, #1f1540 100%); }
+        .g9{ background: linear-gradient(135deg, #1a0a0a 0%, #400f0f 100%); }
+
+        .gal-thumb { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transition: transform 0.4s; }
+        .gal-thumb ion-icon { font-size: 52px; color: rgba(255,255,255,0.35); }
+        .gal-item.wide .gal-thumb ion-icon { font-size: 70px; }
+        .gal-item:hover .gal-thumb { transform: scale(1.06); }
+
+        .gal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
+        .gal-item:hover .gal-overlay { background: rgba(0,0,0,0.62); }
+        .gal-caption { color: #fff; font-size: 13px; font-weight: 700; opacity: 0; transition: all 0.3s; margin-bottom: 10px; }
+        .gal-item:hover .gal-caption { opacity: 1; transform: translateY(0); }
+        .gal-actions { display: flex; gap: 8px; opacity: 0; transition: all 0.3s 0.05s; }
+        .gal-item:hover .gal-actions { opacity: 1; transform: translateY(0); }
+        .btn-view-photo { display: inline-flex; align-items: center; gap: 6px; background: rgba(229,57,53,0.9); color: #fff; border: none; border-radius: 14px; padding: 7px 14px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: var(--font-body); transition: background 0.2s; }
+        .btn-view-photo:hover { background: var(--primary); }
+
+        /* Category pill on each item */
+        .gal-cat-pill { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.55); color: #fff; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px); }
+
+        /* ===== PHOTO LIGHTBOX MODAL ===== */
+        .photo-modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .photo-modal-backdrop.open { opacity: 1; pointer-events: all; }
+        .photo-modal { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 24px; max-width: 720px; width: 92vw; overflow: hidden; transform: scale(0.88); transition: transform 0.3s; }
+        .photo-modal-backdrop.open .photo-modal { transform: scale(1); }
+        .photo-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--border-light); }
+        .photo-modal-header h3 { font-size: 17px; font-weight: 800; margin: 0; }
+        .modal-close { background: rgba(255,255,255,0.06); border: 1px solid var(--border-light); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-secondary); font-size: 20px; transition: all 0.2s; }
+        .modal-close:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .photo-modal-display { height: 320px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .photo-modal-display ion-icon { font-size: 100px; color: rgba(255,255,255,0.25); }
+        .photo-modal-body { padding: 24px 28px; }
+        .photo-modal-body p { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 18px; }
+        .photo-modal-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .photo-tag { background: rgba(229,57,53,0.08); border: 1px solid rgba(229,57,53,0.15); border-radius: 12px; padding: 4px 14px; font-size: 12px; font-weight: 600; color: var(--primary); }
+
+        /* Count footer */
+        .gallery-count { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+        .gallery-count strong { color: var(--text-primary); }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader"><div class="loader-content"><div class="logo-box" style="justify-content:center;margin-bottom:20px"><img src="images/tts_logo.png" alt="TechnoKraft Logo"><div class="brand-text"><span class="brand-main">TechnoKraft</span><span class="brand-sub">Training & Solution Pvt. Ltd.</span></div></div><div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div></div></div>
+    <div class="scroll-progress"></div>
+    <div class="scene-3d"><div class="float-shape"></div><div class="float-shape"></div><div class="float-shape"></div></div>
+    <div class="grid-pattern"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-box">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text">
+                    <span class="brand-main">TechnoKraft</span>
+                    <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                </div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <div class="sidebar-logo">
+                    <div class="logo-box">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="index.html">Home</a>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Courses</a>
+                    <div class="dropdown-menu">
+                        <a href="courses.html">All Courses</a>
+
+                        <span class="dropdown-header">[ Short Learning ]</span>
+                        <a href="crash-courses.html">Crash Courses</a>
+                        <a href="workshops.html">Workshops</a>
+                        <a href="sessions-seminars.html">Sessions & Seminars</a>
+                        <div class="sub-menu">
+                            <a href="career-guidance.html">Career Guidance Sessions</a>
+                            <a href="resume-building.html">Resume Building Sessions</a>
+                            <a href="interview-preparation.html">Interview Preparation</a>
+                        </div>
+
+                        <span class="dropdown-header">[ Programs ]</span>
+                        <a href="certification-programs.html">Certification Programs</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Students</a>
+                    <div class="dropdown-menu">
+                        <a href="placements.html">Placed Students</a>
+                        <a href="certifications.html">Certified Students</a>
+                        <a href="testimonials.html">Student Testimonials</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle active">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="blogs.html">Blogs</a>
+                        <a href="events.html">Events</a>
+                        <a href="gallery.html" class="active">Gallery</a>
+                        <a href="jobs.html">Jobs</a>
+                        <a href="videos.html">Videos</a>
+                        <a href="top-institutes.html">Top Institutes in Nashik</a>
+                    </div>
+                </div>
+
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Counseling</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero"><div class="container">
+        <div class="section-label reveal-smooth">Campus Life & Memories</div>
+        <h1 class="reveal-scale">Our <span class="shimmer-text">Gallery</span></h1>
+        <p class="reveal-smooth">From classroom sessions to placement celebrations — a visual journey through TechnoKraft's vibrant campus life.</p>
+    </div></section>
+
+    <section class="services-section" style="padding-top:60px"><div class="container">
+        <!-- Filters -->
+        <div class="gallery-filters reveal-smooth" id="galFilters">
+            <button class="gal-filter active" data-filter="all">All</button>
+            <button class="gal-filter" data-filter="campus">Campus Life</button>
+            <button class="gal-filter" data-filter="workshops">Workshops</button>
+            <button class="gal-filter" data-filter="placements">Placement Drives</button>
+            <button class="gal-filter" data-filter="seminars">Seminars</button>
+            <button class="gal-filter" data-filter="celebrations">Celebrations</button>
+        </div>
+        <div class="gallery-count reveal-smooth" id="galCount"><strong>12</strong> photos displayed</div>
+
+        <!-- Gallery Grid — each item has data-cat for filtering -->
+        <div class="gallery-grid" id="galleryGrid">
+
+            <div class="gal-item wide g1 reveal-smooth" data-cat="celebrations"
+                 data-title="Batch Graduation – Java Full Stack 2024"
+                 data-desc="200+ students celebrated the completion of the Java Full Stack program in our annual graduation ceremony. A proud milestone for TechnoKraft's biggest batch!"
+                 data-tags="Java,Graduation,Batch 2024,Celebration">
+                <div class="gal-thumb"><ion-icon name="school-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Celebrations</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Batch Graduation – Java Full Stack 2024</div>
+                    <div class="gal-actions">
+                        <button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gal-item g2 reveal-smooth" data-cat="campus"
+                 data-title="Live Coding Lab Session"
+                 data-desc="Students working hands-on with Java Spring Boot in our fully equipped coding lab. Every student gets a dedicated workstation with enterprise-grade hardware."
+                 data-tags="Campus,Java,Lab,Coding">
+                <div class="gal-thumb"><ion-icon name="desktop-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Campus Life</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Live Coding Lab Session</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g3 reveal-smooth" data-cat="workshops"
+                 data-title="Power BI Workshop"
+                 data-desc="Participants built real-time dashboards using Power BI, connecting live business data sources and creating interactive reports during our 1-day masterclass."
+                 data-tags="Power BI,Workshop,Data,Analytics">
+                <div class="gal-thumb"><ion-icon name="bar-chart-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Workshops</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Power BI Workshop</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g4 reveal-smooth" data-cat="placements"
+                 data-title="TCS Placement Drive 2025"
+                 data-desc="TCS conducted an exclusive off-campus drive at TechnoKraft. 45 students were shortlisted and 38 received final offer letters from TCS on the same day."
+                 data-tags="TCS,Placement,Drive,2025">
+                <div class="gal-thumb"><ion-icon name="briefcase-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Placements</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">TCS Placement Drive 2025</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g5 reveal-smooth" data-cat="seminars"
+                 data-title="YCMOU Seminar Talk"
+                 data-desc="TechnoKraft faculty conducted a career guidance seminar at YCMOU Nashik, mentoring 300+ students on tech career paths, salaries, and required skill sets."
+                 data-tags="Seminar,Career,YCMOU,Nashik">
+                <div class="gal-thumb"><ion-icon name="mic-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Seminars</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">YCMOU Seminar Talk</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item wide g6 reveal-smooth" data-cat="celebrations"
+                 data-title="Placement Celebration – 200 Jobs Milestone"
+                 data-desc="We celebrated reaching the 200 placements milestone in a single academic year. Students, faculty and management gathered to honor this historic achievement."
+                 data-tags="Celebration,200 Jobs,Milestone,Placement">
+                <div class="gal-thumb"><ion-icon name="trophy-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Celebrations</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Placement Celebration – 200 Jobs Milestone</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g7 reveal-smooth" data-cat="workshops"
+                 data-title="Generative AI Workshop"
+                 data-desc="An intensive 5-hour workshop on Generative AI tools — prompt engineering, LangChain, ChatGPT API, and building real AI applications from scratch."
+                 data-tags="GenAI,AI,Workshop,LangChain">
+                <div class="gal-thumb"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Workshops</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Generative AI Workshop</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g8 reveal-smooth" data-cat="campus"
+                 data-title="Resume Building Session"
+                 data-desc="Expert HR professionals guided students in crafting ATS-optimized resumes tailored for top IT companies. Each student received personalized 1-on-1 feedback."
+                 data-tags="Resume,Campus,HR,Placement Prep">
+                <div class="gal-thumb"><ion-icon name="document-text-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Campus Life</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Resume Building Session</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g9 reveal-smooth" data-cat="celebrations"
+                 data-title="Certificate Distribution Ceremony"
+                 data-desc="We honoured our graduating batch with an official certificate distribution ceremony attended by industry guests, parents, and all TechnoKraft faculty."
+                 data-tags="Certificate,Ceremony,Graduation,Achievement">
+                <div class="gal-thumb"><ion-icon name="ribbon-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Celebrations</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Certificate Distribution Ceremony</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g1 reveal-smooth" data-cat="campus"
+                 data-title="Mock Interview Preparation"
+                 data-desc="Students undergo structured mock interviews with industry professionals every week, simulating real HR and technical rounds at top IT companies."
+                 data-tags="Mock Interview,Campus,Prep,HR">
+                <div class="gal-thumb"><ion-icon name="people-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Campus Life</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Mock Interview Preparation</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item wide g2 reveal-smooth" data-cat="seminars"
+                 data-title="Industry Expert Session – Data Science"
+                 data-desc="A senior Data Scientist from Persistent Systems conducted a live Q&A and case study session on real-world ML model deployment for our Data Science students."
+                 data-tags="Data Science,Expert,Seminar,ML">
+                <div class="gal-thumb"><ion-icon name="analytics-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Seminars</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Industry Expert Session – Data Science</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g3 reveal-smooth" data-cat="workshops"
+                 data-title="Cloud & DevOps Training"
+                 data-desc="A hands-on DevOps session covering Docker Compose, Kubernetes deployments, and AWS EC2 setup — all done live on real cloud infrastructure."
+                 data-tags="DevOps,Cloud,AWS,Docker">
+                <div class="gal-thumb"><ion-icon name="cloud-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Workshops</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Cloud & DevOps Training</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+            <div class="gal-item g4 reveal-smooth" data-cat="placements"
+                 data-title="Infosys Walk-in Drive"
+                 data-desc="Infosys partnered with TechnoKraft for an exclusive walk-in drive. 25 students appeared and 18 received placement offers in Pune and Bangalore locations."
+                 data-tags="Infosys,Placement,Walk-in,Drive">
+                <div class="gal-thumb"><ion-icon name="wallet-outline"></ion-icon></div>
+                <div class="gal-cat-pill">Placements</div>
+                <div class="gal-overlay">
+                    <div class="gal-caption">Infosys Walk-in Drive</div>
+                    <div class="gal-actions"><button class="btn-view-photo"><ion-icon name="expand-outline"></ion-icon> View Photo</button></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="text-align:center;margin-top:40px;color:var(--text-muted);font-size:14px;padding:24px;background:var(--bg-card);border-radius:16px;border:1px solid var(--border-light);" class="reveal-smooth">
+            <ion-icon name="images-outline" style="font-size:32px;margin-bottom:12px;display:block;color:var(--primary)"></ion-icon>
+            <strong>More photos coming soon!</strong><br>Follow us on <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank" style="color:var(--primary)">Instagram</a> and <a href="https://www.facebook.com/tts.net.in/" target="_blank" style="color:var(--primary)">Facebook</a> for the latest updates.
+        </div>
+    </div></section>
+
+    <!-- ===== PHOTO LIGHTBOX MODAL ===== -->
+    <div class="photo-modal-backdrop" id="photoModal">
+        <div class="photo-modal">
+            <div class="photo-modal-header">
+                <h3 id="modalPhotoTitle">Photo Title</h3>
+                <button class="modal-close" id="closePhotoModal"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="photo-modal-display" id="modalPhotoDisplay">
+                <ion-icon name="images-outline"></ion-icon>
+            </div>
+            <div class="photo-modal-body">
+                <p id="modalPhotoDesc">Description here.</p>
+                <div class="photo-modal-tags" id="modalPhotoTags"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-box" style="margin-bottom: 20px;">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </a>
+                    <p>TechnoKraft Training & Solution Pvt. Ltd. is dedicated to building high-impact tech careers with
+                        integrity, transparency, and a 100% placement guarantee.</p>
+
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/tts.net.in/" target="_blank" aria-label="Facebook"><ion-icon
+                                name="logo-facebook"></ion-icon></a>
+                        <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank"
+                            aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="https://www.linkedin.com/company/ttsnashik/" target="_blank"
+                            aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://www.youtube.com/@technokraft-tts455" target="_blank"
+                            aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Courses</h4>
+                    <a href="courses.html#full-stack">Java Full Stack</a>
+                    <a href="courses.html#data-science">Data Science & AI</a>
+                    <a href="courses.html#devops">DevOps / Cloud</a>
+                    <a href="courses.html#web-dev">Web Development</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">
+                        <ion-icon name="location-outline"></ion-icon> 1st Floor, Kanchwala Avenue, Above Viju’s Dabeli,
+                        Thatte Nagar Marg, College Road, Nashik, Maharashtra 422005, India
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="call-outline"></ion-icon> +91-8645628278
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="mail-outline"></ion-icon> info@tts.net.in
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px;">
+                        <ion-icon name="time-outline"></ion-icon> 09:30 am - 08:30 pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="index.html" style="color: inherit; text-decoration: none;">TechnoKraft
+                        Training & Solution Pvt. Ltd.</a> All rights reserved. | Krafting Your Skills</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script>
+    // ===== GALLERY FILTER LOGIC =====
+    const filterBtns = document.querySelectorAll('.gal-filter');
+    const galItems   = document.querySelectorAll('#galleryGrid .gal-item');
+    const galCount   = document.getElementById('galCount');
+
+    function applyFilter(cat) {
+        let visible = 0;
+        galItems.forEach(item => {
+            const itemCat = item.dataset.cat;
+            const match   = cat === 'all' || itemCat === cat;
+            item.classList.toggle('hidden', !match);
+            // Reset animation so reveal fires again after un-hiding
+            if (match) {
+                item.classList.remove('visible');
+                void item.offsetHeight;
+                setTimeout(() => item.classList.add('visible'), 40 + visible * 60);
+                visible++;
+            }
+        });
+        galCount.innerHTML = `<strong>${visible}</strong> photos displayed`;
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilter(btn.dataset.filter);
+        });
+    });
+
+    // ===== PHOTO LIGHTBOX MODAL =====
+    const photoModal     = document.getElementById('photoModal');
+    const modalTitle     = document.getElementById('modalPhotoTitle');
+    const modalDesc      = document.getElementById('modalPhotoDesc');
+    const modalTags      = document.getElementById('modalPhotoTags');
+    const modalDisplay   = document.getElementById('modalPhotoDisplay');
+    const closePhotoModal= document.getElementById('closePhotoModal');
+
+    // Map category to ionicon name for display
+    const catIconMap = {
+        'celebrations': 'trophy-outline',
+        'campus'      : 'desktop-outline',
+        'workshops'   : 'construct-outline',
+        'placements'  : 'briefcase-outline',
+        'seminars'    : 'mic-outline'
+    };
+
+    document.querySelectorAll('.btn-view-photo').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const card  = btn.closest('.gal-item');
+            const title = card.dataset.title;
+            const desc  = card.dataset.desc;
+            const tags  = card.dataset.tags.split(',');
+            const cat   = card.dataset.cat;
+            const icon  = card.querySelector('.gal-thumb ion-icon').getAttribute('name');
+            const bg    = getComputedStyle(card).background;
+
+            modalTitle.textContent = title;
+            modalDesc.textContent  = desc;
+            modalDisplay.style.background = bg;
+            modalDisplay.innerHTML = `<ion-icon name="${icon}" style="font-size:90px;color:rgba(255,255,255,0.3)"></ion-icon>`;
+            modalTags.innerHTML    = tags.map(t => `<span class="photo-tag">${t.trim()}</span>`).join('');
+            photoModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close modal
+    function closeModal() {
+        photoModal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    closePhotoModal.addEventListener('click', closeModal);
+    photoModal.addEventListener('click', (e) => { if (e.target === photoModal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Courses | TechnoKraft Training & Solution - Best Placement Institute in Nashik</title>
+    <link rel="icon" type="image/png" href="images/tts_logo.png">
+    <meta name="description" content="Explore our expert IT training courses in Nashik. We offer Java Full Stack, Data Science, AI, DevOps, and Web Development with 100% placement support.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tts.net.in/courses.html">
+    <meta property="og:title" content="IT Courses | TechnoKraft Training & Solution - Best Placement Institute in Nashik">
+    <meta property="og:description" content="Explore our expert IT training courses in Nashik. We offer Java Full Stack, Data Science, AI, DevOps, and Web Development with 100% placement support.">
+    <meta property="og:image" content="https://tts.net.in/images/tts_logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tts.net.in/courses.html">
+    <meta property="twitter:title" content="IT Courses | TechnoKraft Training & Solution - Best Placement Institute in Nashik">
+    <meta property="twitter:description" content="Explore our expert IT training courses in Nashik. We offer Java Full Stack, Data Science, AI, DevOps, and Web Development with 100% placement support.">
+    <meta property="twitter:image" content="https://tts.net.in/images/tts_logo.png">
+    
+    <link rel="canonical" href="https://tts.net.in/courses.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Sanchez&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        /* ===== COURSE MODAL ===== */
+        .course-modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+        .course-modal-overlay.open {
+            opacity: 1; pointer-events: all;
+        }
+        .course-modal {
+            background: var(--bg-card, #1a1a2e);
+            border: 1px solid var(--border-light, rgba(255,255,255,0.08));
+            border-radius: 24px;
+            max-width: 560px; width: 100%;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            transform: translateY(30px) scale(0.97);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            position: relative;
+        }
+        .course-modal-overlay.open .course-modal {
+            transform: translateY(0) scale(1);
+        }
+        .modal-header-bar {
+            padding: 28px 32px 20px;
+            border-bottom: 1px solid var(--border-light, rgba(255,255,255,0.08));
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+        }
+        .modal-icon-box {
+            width: 52px; height: 52px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; flex-shrink: 0;
+        }
+        .modal-icon-box.red   { background: rgba(229,57,53,0.15); color: #E53935; }
+        .modal-icon-box.blue  { background: rgba(33,150,243,0.15); color: #2196F3; }
+        .modal-icon-box.green { background: rgba(76,175,80,0.15); color: #4CAF50; }
+        .modal-icon-box.gold  { background: rgba(255,193,7,0.15); color: #FFC107; }
+        .modal-close-btn {
+            background: var(--bg-elevated, rgba(255,255,255,0.05));
+            border: none; border-radius: 10px;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-muted, #aaa); font-size: 20px;
+            transition: all 0.2s; flex-shrink: 0;
+        }
+        .modal-close-btn:hover { background: rgba(229,57,53,0.15); color: #E53935; }
+        .modal-title-group { flex: 1; }
+        .modal-course-tag {
+            font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--primary, #E53935); margin-bottom: 6px;
+        }
+        .modal-course-name {
+            font-family: var(--font-heading, 'Space Grotesk'); font-size: 20px; font-weight: 700;
+            color: var(--text-primary, #fff);  margin: 0;
+        }
+        .modal-body { padding: 24px 32px 32px; }
+        .modal-highlight-row {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; margin-bottom: 24px;
+        }
+        .modal-highlight {
+            background: var(--bg-elevated, rgba(255,255,255,0.04));
+            border: 1px solid var(--border-light, rgba(255,255,255,0.06));
+            border-radius: 12px; padding: 14px; text-align: center;
+        }
+        .modal-highlight ion-icon { font-size: 20px; display: block; margin: 0 auto 6px; }
+        .modal-highlight .h-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .modal-highlight .h-value { font-size: 15px; font-weight: 700; color: var(--text-primary, #fff); margin-top: 3px; }
+        .modal-what-learn { margin-bottom: 24px; }
+        .modal-what-learn h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 12px; }
+        .modal-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .modal-skill-pill {
+            background: var(--bg-elevated, rgba(255,255,255,0.05));
+            border: 1px solid var(--border-light, rgba(255,255,255,0.07));
+            border-radius: 20px; padding: 5px 14px;
+            font-size: 13px; color: var(--text-secondary, #ccc); font-weight: 500;
+        }
+        .modal-actions { display: flex; gap: 12px; }
+        .modal-actions .btn-primary { flex: 1; justify-content: center; padding: 14px; }
+        .modal-actions .btn-secondary { flex: 1; justify-content: center; padding: 14px; }
+
+        /* ===== SERVICE CARD with View Details ===== */
+        .service-card .card-footer-row {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: 18px; padding-top: 16px;
+            border-top: 1px solid var(--border-light, rgba(255,255,255,0.06));
+        }
+        .btn-view-details-card {
+            background: none; border: 1px solid var(--primary, #E53935);
+            color: var(--primary, #E53935); font-size: 13px; font-weight: 600;
+            padding: 7px 18px; border-radius: 20px; cursor: pointer;
+            transition: all 0.25s; letter-spacing: 0.3px;
+        }
+        .btn-view-details-card:hover { background: var(--primary, #E53935); color: #fff; }
+        .card-duration-tag { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader"><div class="loader-content"><div class="logo-box" style="justify-content: center; margin-bottom: 20px;"><img src="images/tts_logo.png" alt="TechnoKraft Logo"><div class="brand-text"><span class="brand-main">TechnoKraft</span><span class="brand-sub">Training & Solution Pvt. Ltd.</span></div></div><div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div></div></div>
+    <div class="scroll-progress"></div>
+    <div class="scene-3d"><div class="float-shape"></div><div class="float-shape"></div><div class="float-shape"></div><div class="float-shape"></div><div class="float-shape"></div></div>
+    <div class="grid-pattern"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-box">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text">
+                    <span class="brand-main">TechnoKraft</span>
+                    <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                </div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <div class="sidebar-logo">
+                    <div class="logo-box">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="index.html">Home</a>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Courses</a>
+                    <div class="dropdown-menu">
+                        <a href="courses.html" class="active">All Courses</a>
+
+                        <span class="dropdown-header">[ Short Learning ]</span>
+                        <a href="crash-courses.html">Crash Courses</a>
+                        <a href="workshops.html">Workshops</a>
+                        <a href="sessions-seminars.html">Sessions & Seminars</a>
+                        <div class="sub-menu">
+                            <a href="career-guidance.html">Career Guidance Sessions</a>
+                            <a href="resume-building.html">Resume Building Sessions</a>
+                            <a href="interview-preparation.html">Interview Preparation</a>
+                        </div>
+
+                        <span class="dropdown-header">[ Programs ]</span>
+                        <a href="certification-programs.html">Certification Programs</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Students</a>
+                    <div class="dropdown-menu">
+                        <a href="placements.html">Placed Students</a>
+                        <a href="certifications.html">Certified Students</a>
+                        <a href="testimonials.html">Student Testimonials</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="blogs.html">Blogs</a>
+                        <a href="events.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="jobs.html">Jobs</a>
+                        <a href="videos.html">Videos</a>
+                        <a href="top-institutes.html">Top Institutes in Nashik</a>
+                    </div>
+                </div>
+
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Counseling</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="section-label reveal-smooth">Skill Up Excellence</div>
+            <h1 class="reveal-scale">Professional <span class="shimmer-text">IT Courses</span></h1>
+            <p class="reveal-smooth">Become an industry-ready professional with our job-oriented curriculum and hands-on projects.</p>
+        </div>
+    </section>
+
+    <!-- AI Suggestion Box — MOVED TO TOP -->
+    <section class="ai-suggestion-section" id="ai-suggestion" style="padding-top: 60px; padding-bottom: 0;">
+        <div class="container">
+            <div class="suggestion-card-wrapper reveal-scale">
+                <div class="section-header">
+                    <div class="section-label reveal-smooth">AI-Powered Recommendations</div>
+                    <h2 class="section-title">Not Sure What to Learn?</h2>
+                    <p class="section-subtitle">Tell us your goal and we'll suggest the best course for you.</p>
+                </div>
+                <div class="suggestion-form">
+                    <div class="input-container">
+                        <textarea id="user-goal" class="suggestion-textarea" placeholder="Example: I want to learn web development from scratch or I want a job in data science"></textarea>
+                    </div>
+                    <button id="get-suggestions-btn" class="btn-primary"><span>Get AI Suggestions</span><ion-icon name="sparkles-outline"></ion-icon></button>
+                </div>
+                <div id="suggestions-results" class="suggestions-results"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Courses Grid -->
+    <section class="services-section reveal-smooth">
+        <div class="container">
+            <div class="section-header reveal-scale">
+                <div class="section-label reveal-smooth">Our Specialized Programs</div>
+                <h2 class="section-title">Explore <span class="text-primary">All Courses</span></h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal-smooth" data-course="java">
+                    <div class="service-icon red"><ion-icon name="code-slash-outline"></ion-icon></div>
+                    <h3>Java Full Stack</h3>
+                    <p>Master end-to-end development with Java, Spring Boot, and React. 100% placement support.</p>
+                    <div class="card-footer-row">
+                        <span class="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 6 Months</span>
+                        <button class="btn-view-details-card" onclick="openCourseModal('java')">View Details</button>
+                    </div>
+                </div>
+                <div class="service-card reveal-smooth" data-course="python">
+                    <div class="service-icon blue"><ion-icon name="logo-python"></ion-icon></div>
+                    <h3>Python Full Stack</h3>
+                    <p>Build robust applications using Python, Django, and modern front-end frameworks with AI integration.</p>
+                    <div class="card-footer-row">
+                        <span class="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 6 Months</span>
+                        <button class="btn-view-details-card" onclick="openCourseModal('python')">View Details</button>
+                    </div>
+                </div>
+                <div class="service-card reveal-smooth" data-course="web">
+                    <div class="service-icon green"><ion-icon name="globe-outline"></ion-icon></div>
+                    <h3>Web Development</h3>
+                    <p>Build stunning responsive websites using modern frameworks. From HTML/CSS to React & Node.js.</p>
+                    <div class="card-footer-row">
+                        <span class="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 4 Months</span>
+                        <button class="btn-view-details-card" onclick="openCourseModal('web')">View Details</button>
+                    </div>
+                </div>
+                <div class="service-card reveal-smooth" data-course="datascience">
+                    <div class="service-icon gold"><ion-icon name="hardware-chip-outline"></ion-icon></div>
+                    <h3>Data Science & AI</h3>
+                    <p>Unlock insights with Python, Machine Learning, and Power BI. Learn from industry experts.</p>
+                    <div class="card-footer-row">
+                        <span class="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 6 Months</span>
+                        <button class="btn-view-details-card" onclick="openCourseModal('datascience')">View Details</button>
+                    </div>
+                </div>
+                <div class="service-card reveal-smooth" data-course="devops">
+                    <div class="service-icon teal"><ion-icon name="cloud-outline"></ion-icon></div>
+                    <h3>DevOps & Cloud</h3>
+                    <p>Master CI/CD pipelines, Docker, Kubernetes, and AWS. Industry's most in-demand skill set.</p>
+                    <div class="card-footer-row">
+                        <span class="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 4 Months</span>
+                        <button class="btn-view-details-card" onclick="openCourseModal('devops')">View Details</button>
+                    </div>
+                </div>
+                <div class="service-card reveal-smooth" data-course="digitalmarketing">
+                    <div class="service-icon purple"><ion-icon name="megaphone-outline"></ion-icon></div>
+                    <h3>Digital Marketing</h3>
+                    <p>SEO, Social Media, Google Ads and Content Strategy — the complete digital growth toolkit.</p>
+                    <div class="card-footer-row">
+                        <span class="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 3 Months</span>
+                        <button class="btn-view-details-card" onclick="openCourseModal('digitalmarketing')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Detail Modal -->
+    <div class="course-modal-overlay" id="courseModalOverlay" onclick="closeCourseModal(event)">
+        <div class="course-modal" id="courseModal">
+            <div class="modal-header-bar">
+                <div class="modal-icon-box" id="modalIconBox"><ion-icon id="modalIcon" name="code-slash-outline"></ion-icon></div>
+                <div class="modal-title-group">
+                    <div class="modal-course-tag" id="modalTag">Certification Program</div>
+                    <h3 class="modal-course-name" id="modalTitle">Java Full Stack</h3>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal()"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-highlight-row">
+                    <div class="modal-highlight">
+                        <ion-icon name="time-outline" style="color: var(--primary);"></ion-icon>
+                        <div class="h-label">Duration</div>
+                        <div class="h-value" id="modalDuration">6 Months</div>
+                    </div>
+                    <div class="modal-highlight">
+                        <ion-icon name="cash-outline" style="color: #4CAF50;"></ion-icon>
+                        <div class="h-label">Course Fees</div>
+                        <div class="h-value" id="modalFees">₹40,000</div>
+                    </div>
+                    <div class="modal-highlight">
+                        <ion-icon name="star" style="color: #FFC107;"></ion-icon>
+                        <div class="h-label">Rating</div>
+                        <div class="h-value" id="modalRating">4.8 ★</div>
+                    </div>
+                </div>
+                <div class="modal-what-learn">
+                    <h4>What You'll Learn</h4>
+                    <div class="modal-skills" id="modalSkills"></div>
+                </div>
+                <div class="modal-actions">
+                    <a href="contact.html" class="btn-primary">Enroll Now</a>
+                    <a href="contact.html" class="btn-secondary">Free Counseling</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-box" style="margin-bottom: 20px;">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </a>
+                    <p>TechnoKraft Training & Solution Pvt. Ltd. is dedicated to building high-impact tech careers with
+                        integrity, transparency, and a 100% placement guarantee.</p>
+
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/tts.net.in/" target="_blank" aria-label="Facebook"><ion-icon
+                                name="logo-facebook"></ion-icon></a>
+                        <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank"
+                            aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="https://www.linkedin.com/company/ttsnashik/" target="_blank"
+                            aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://www.youtube.com/@technokraft-tts455" target="_blank"
+                            aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Courses</h4>
+                    <a href="courses.html#full-stack">Java Full Stack</a>
+                    <a href="courses.html#data-science">Data Science & AI</a>
+                    <a href="courses.html#devops">DevOps / Cloud</a>
+                    <a href="courses.html#web-dev">Web Development</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">
+                        <ion-icon name="location-outline"></ion-icon> 1st Floor, Kanchwala Avenue, Above Viju’s Dabeli,
+                        Thatte Nagar Marg, College Road, Nashik, Maharashtra 422005, India
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="call-outline"></ion-icon> +91-8645628278
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="mail-outline"></ion-icon> info@tts.net.in
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px;">
+                        <ion-icon name="time-outline"></ion-icon> 09:30 am - 08:30 pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="index.html" style="color: inherit; text-decoration: none;">TechnoKraft
+                        Training & Solution Pvt. Ltd.</a> All rights reserved. | Krafting Your Skills</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // ===== COURSE DATA FOR MODALS =====
+        const COURSE_DB = {
+            java: {
+                name: "Java Full Stack Development",
+                tag: "Certification Program",
+                icon: "code-slash-outline",
+                iconClass: "red",
+                duration: "6 Months",
+                fees: "₹40,000",
+                rating: "4.8 ★",
+                skills: ["Core Java","Spring Boot","React.js","REST APIs","MySQL","Hibernate","Microservices","Git","Maven","JUnit"]
+            },
+            python: {
+                name: "Python Full Stack Development",
+                tag: "Certification Program",
+                icon: "logo-python",
+                iconClass: "blue",
+                duration: "6 Months",
+                fees: "₹40,000",
+                rating: "4.8 ★",
+                skills: ["Python","Django","Flask","React.js","PostgreSQL","REST APIs","Pandas","NumPy","Docker","Git"]
+            },
+            web: {
+                name: "Modern Web Development",
+                tag: "Certification Program",
+                icon: "globe-outline",
+                iconClass: "green",
+                duration: "4 Months",
+                fees: "₹30,000",
+                rating: "4.6 ★",
+                skills: ["HTML5","CSS3","JavaScript","React.js","Bootstrap","Tailwind","Node.js","MongoDB","Express","Figma"]
+            },
+            datascience: {
+                name: "Data Science & Artificial Intelligence",
+                tag: "Certification Program",
+                icon: "hardware-chip-outline",
+                iconClass: "gold",
+                duration: "6 Months",
+                fees: "₹45,000",
+                rating: "4.9 ★",
+                skills: ["Python","Machine Learning","Deep Learning","Power BI","Pandas","NumPy","TensorFlow","NLP","Statistics","GenAI"]
+            },
+            devops: {
+                name: "DevOps & Cloud Computing",
+                tag: "Certification Program",
+                icon: "cloud-outline",
+                iconClass: "teal",
+                duration: "4 Months",
+                fees: "₹35,000",
+                rating: "4.7 ★",
+                skills: ["AWS","Docker","Kubernetes","Jenkins","Terraform","Ansible","Linux","Git","CI/CD Pipelines","Monitoring"]
+            },
+            digitalmarketing: {
+                name: "Digital Marketing",
+                tag: "Certification Program",
+                icon: "megaphone-outline",
+                iconClass: "purple",
+                duration: "3 Months",
+                fees: "₹20,000",
+                rating: "4.7 ★",
+                skills: ["SEO","Google Ads","Social Media Marketing","Content Strategy","Email Marketing","Analytics","Meta Ads","YouTube SEO","Canva","CRO"]
+            }
+        };
+
+        function openCourseModal(courseId) {
+            const course = COURSE_DB[courseId];
+            if (!course) return;
+            document.getElementById('modalTitle').textContent = course.name;
+            document.getElementById('modalTag').textContent = course.tag;
+            document.getElementById('modalDuration').textContent = course.duration;
+            document.getElementById('modalFees').textContent = course.fees;
+            document.getElementById('modalRating').textContent = course.rating;
+            document.getElementById('modalIcon').setAttribute('name', course.icon);
+            const iconBox = document.getElementById('modalIconBox');
+            iconBox.className = 'modal-icon-box ' + course.iconClass;
+            const skillsContainer = document.getElementById('modalSkills');
+            skillsContainer.innerHTML = course.skills.map(s => `<span class="modal-skill-pill">${s}</span>`).join('');
+            document.getElementById('courseModalOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('courseModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeCourseModal(e) {
+            if (e.target === document.getElementById('courseModalOverlay')) closeModal();
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        // Hook AI suggestion "View Details" buttons to open modal
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-view-details') && e.target.dataset.courseId) {
+                e.preventDefault();
+                openCourseModal(e.target.dataset.courseId);
+            }
+        });
+    </script>
+</body>
+</html>

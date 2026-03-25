@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placed Students | 3000+ IT Placements in Nashik - TechnoKraft</title>
+    <link rel="icon" type="image/png" href="images/tts_logo.png">
+    <meta name="description"
+        content="Meet our 3000+ placed students who landed jobs at top IT companies. TechnoKraft's 100% placement guarantee in action.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tts.net.in/placements.html">
+    <meta property="og:title" content="Placed Students | 3000+ IT Placements in Nashik - TechnoKraft">
+    <meta property="og:description" content="Best IT Training Institute in Nashik">
+    <meta property="og:image" content="https://tts.net.in/images/tts_logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tts.net.in/placements.html">
+    <meta property="twitter:title" content="Placed Students | 3000+ IT Placements in Nashik - TechnoKraft">
+    <meta property="twitter:description" content="Best IT Training Institute in Nashik">
+    <meta property="twitter:image" content="https://tts.net.in/images/tts_logo.png">
+    
+    <link rel="canonical" href="https://tts.net.in/placements.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Sanchez&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .placement-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        @media(max-width:768px) {
+            .placement-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .stat-box .num {
+            font-size: 40px;
+            font-weight: 900;
+            font-family: var(--font-heading);
+            color: #E53935;
+        }
+
+        .stat-box .lbl {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .placed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .placed-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .placed-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(229, 57, 53, 0.3);
+        }
+
+        .placed-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, #b71c1c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0 auto 14px;
+            font-family: var(--font-heading);
+        }
+
+        .placed-name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .placed-role {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .placed-company {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .placed-pkg {
+            background: rgba(229, 57, 53, 0.08);
+            border: 1px solid rgba(229, 57, 53, 0.15);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        .placed-view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 7px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-body);
+            width: 100%;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .placed-view-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .company-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .company-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        /* Profile Modal */
+        .profile-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .profile-modal-backdrop.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .profile-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            max-width: 480px;
+            width: 92vw;
+            overflow: hidden;
+            transform: scale(0.88);
+            transition: transform 0.3s;
+        }
+
+        .profile-modal-backdrop.open .profile-modal {
+            transform: scale(1);
+        }
+
+        .pm-header {
+            background: linear-gradient(135deg, #1a0808, #3d1515);
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .pm-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(229, 57, 53, 0.3);
+            border: 2px solid rgba(229, 57, 53, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .pm-info h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0 0 4px;
+        }
+
+        .pm-info .pm-role {
+            font-size: 13px;
+            color: rgba(229, 57, 53, 0.9);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .pm-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #fff;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .pm-close:hover {
+            background: var(--primary);
+        }
+
+        .pm-body {
+            padding: 28px;
+        }
+
+        .pm-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 14px;
+        }
+
+        .pm-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .pm-row ion-icon {
+            font-size: 18px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .pm-row .pm-label {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .pm-row .pm-val {
+            font-weight: 700;
+        }
+
+        .pm-quote {
+            background: rgba(229, 57, 53, 0.06);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+            padding: 14px 16px;
+            margin-top: 20px;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader-content">
+            <div class="logo-box" style="justify-content:center;margin-bottom:20px"><img src="images/tts_logo.png"
+                    alt="TechnoKraft Logo">
+                <div class="brand-text"><span class="brand-main">TechnoKraft</span><span class="brand-sub">Training &
+                        Solution Pvt. Ltd.</span></div>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-progress" id="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-progress"></div>
+    <div class="scene-3d">
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+    </div>
+    <div class="grid-pattern"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-box">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text">
+                    <span class="brand-main">TechnoKraft</span>
+                    <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                </div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <div class="sidebar-logo">
+                    <div class="logo-box">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="index.html">Home</a>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Courses</a>
+                    <div class="dropdown-menu">
+                        <a href="courses.html">All Courses</a>
+
+                        <span class="dropdown-header">[ Short Learning ]</span>
+                        <a href="crash-courses.html">Crash Courses</a>
+                        <a href="workshops.html">Workshops</a>
+                        <a href="sessions-seminars.html">Sessions & Seminars</a>
+                        <div class="sub-menu">
+                            <a href="career-guidance.html">Career Guidance Sessions</a>
+                            <a href="resume-building.html">Resume Building Sessions</a>
+                            <a href="interview-preparation.html">Interview Preparation</a>
+                        </div>
+
+                        <span class="dropdown-header">[ Programs ]</span>
+                        <a href="certification-programs.html">Certification Programs</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle active">Students</a>
+                    <div class="dropdown-menu">
+                        <a href="placements.html" class="active">Placed Students</a>
+                        <a href="certifications.html">Certified Students</a>
+                        <a href="testimonials.html">Student Testimonials</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="blogs.html">Blogs</a>
+                        <a href="events.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="jobs.html">Jobs</a>
+                        <a href="videos.html">Videos</a>
+                        <a href="top-institutes.html">Top Institutes in Nashik</a>
+                    </div>
+                </div>
+
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Counseling</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="section-label reveal-smooth">Our Pride & Achievement</div>
+            <h1 class="reveal-scale">Placed <span class="shimmer-text">Students</span></h1>
+            <p class="reveal-smooth">3000+ students placed at top IT companies across India. Our commitment to 100%
+                placement makes the difference.</p>
+        </div>
+    </section>
+
+    <section class="services-section" style="padding-top: 60px;">
+        <div class="container">
+            <div class="placement-stats reveal-smooth">
+                <div class="stat-box reveal-scale">
+                    <div class="num">3000+</div>
+                    <div class="lbl">Students Placed</div>
+                </div>
+                <div class="stat-box reveal-scale">
+                    <div class="num">250+</div>
+                    <div class="lbl">Hiring Companies</div>
+                </div>
+                <div class="stat-box reveal-scale">
+                    <div class="num">₹8 LPA</div>
+                    <div class="lbl">Avg. Package</div>
+                </div>
+                <div class="stat-box reveal-scale">
+                    <div class="num">100%</div>
+                    <div class="lbl">Placement Rate</div>
+                </div>
+            </div>
+
+            <div class="section-header reveal-flip" style="margin-bottom: 40px;">
+                <div class="section-label reveal-smooth">Our Recruiters</div>
+                <h2 class="section-title">Top Companies That <span class="gradient-text">Hire Our Students</span></h2>
+            </div>
+            <div class="company-strip reveal-smooth">
+                <div class="company-chip">TCS</div>
+                <div class="company-chip">Infosys</div>
+                <div class="company-chip">Wipro</div>
+                <div class="company-chip">Cognizant</div>
+                <div class="company-chip">HCL Technologies</div>
+                <div class="company-chip">Tech Mahindra</div>
+                <div class="company-chip">Capgemini</div>
+                <div class="company-chip">Accenture</div>
+                <div class="company-chip">LTIMindtree</div>
+                <div class="company-chip">Persistent Systems</div>
+                <div class="company-chip">Mphasis</div>
+                <div class="company-chip">Hexaware</div>
+                <div class="company-chip">KPIT Technologies</div>
+                <div class="company-chip">Zensar</div>
+                <div class="company-chip">Oracle</div>
+                <div class="company-chip">IBM</div>
+                <div class="company-chip">Sopra Steria</div>
+                <div class="company-chip">Birlasoft</div>
+            </div>
+
+            <div class="section-header reveal-flip" style="margin: 60px 0 40px;">
+                <div class="section-label reveal-smooth">Recent Success Stories</div>
+                <h2 class="section-title">Meet Our <span class="gradient-text">Placed Alumni</span></h2>
+            </div>
+            <div class="placed-grid">
+                <div class="placed-card reveal-smooth" data-name="Rohit Kale" data-role="Java Developer"
+                    data-company="TCS, Pune" data-pkg="₹6.5 LPA" data-course="Java Full Stack" data-batch="2024-25"
+                    data-quote="TechnoKraft completely changed my life. Got placed at TCS within 6 months of joining."
+                    data-init="RK">
+                    <div class="placed-avatar">RK</div>
+                    <div class="placed-name">Rohit Kale</div>
+                    <div class="placed-role">Java Developer</div>
+                    <div class="placed-company">TCS, Pune</div>
+                    <div class="placed-pkg">₹6.5 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+                <div class="placed-card reveal-smooth" data-name="Priya Sharma" data-role="Data Analyst"
+                    data-company="Infosys, Pune" data-pkg="₹7.2 LPA" data-course="Data Science & AI"
+                    data-batch="2024-25"
+                    data-quote="The Data Science course is world-class. Cleared all 4 rounds at Infosys on my first attempt."
+                    data-init="PS">
+                    <div class="placed-avatar">PS</div>
+                    <div class="placed-name">Priya Sharma</div>
+                    <div class="placed-role">Data Analyst</div>
+                    <div class="placed-company">Infosys, Pune</div>
+                    <div class="placed-pkg">₹7.2 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+                <div class="placed-card reveal-smooth" data-name="Akash Mane" data-role="Full Stack Developer"
+                    data-company="Persistent Systems" data-pkg="₹9 LPA" data-course="Java Full Stack"
+                    data-batch="2024-25"
+                    data-quote="From zero coding knowledge to ₹9 LPA in 7 months. The structured learning path made it possible."
+                    data-init="AM">
+                    <div class="placed-avatar">AM</div>
+                    <div class="placed-name">Akash Mane</div>
+                    <div class="placed-role">Full Stack Dev</div>
+                    <div class="placed-company">Persistent Systems</div>
+                    <div class="placed-pkg">₹9 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+                <div class="placed-card reveal-smooth" data-name="Sneha Jadhav" data-role="DevOps Engineer"
+                    data-company="HCL Technologies" data-pkg="₹8 LPA" data-course="DevOps & Cloud" data-batch="2024-25"
+                    data-quote="The mock interviews and placement support are exceptional. Landed HCL on my second try."
+                    data-init="SJ">
+                    <div class="placed-avatar">SJ</div>
+                    <div class="placed-name">Sneha Jadhav</div>
+                    <div class="placed-role">DevOps Engineer</div>
+                    <div class="placed-company">HCL Technologies</div>
+                    <div class="placed-pkg">₹8 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+                <div class="placed-card reveal-smooth" data-name="Vishal Patil" data-role="Python Developer"
+                    data-company="Wipro, Bangalore" data-pkg="₹7 LPA" data-course="Python Full Stack"
+                    data-batch="2023-24"
+                    data-quote="TechnoKraft's Python curriculum is very hands-on. Wipro hired me directly from campus."
+                    data-init="VP">
+                    <div class="placed-avatar">VP</div>
+                    <div class="placed-name">Vishal Patil</div>
+                    <div class="placed-role">Python Developer</div>
+                    <div class="placed-company">Wipro, Bangalore</div>
+                    <div class="placed-pkg">₹7 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+                <div class="placed-card reveal-smooth" data-name="Nisha Ahire" data-role="AI/ML Engineer"
+                    data-company="Tech Mahindra" data-pkg="₹10 LPA" data-course="Data Science & AI" data-batch="2024-25"
+                    data-quote="Faculty genuinely cares. They helped me prep for 10+ interviews until I landed my dream AI role."
+                    data-init="NA">
+                    <div class="placed-avatar">NA</div>
+                    <div class="placed-name">Nisha Ahire</div>
+                    <div class="placed-role">AI/ML Engineer</div>
+                    <div class="placed-company">Tech Mahindra</div>
+                    <div class="placed-pkg">₹10 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+                <div class="placed-card reveal-smooth" data-name="Sachin Bhosale" data-role="React Developer"
+                    data-company="Capgemini" data-pkg="₹7.5 LPA" data-course="Web Development" data-batch="2023-24"
+                    data-quote="The placement guarantee is real! From resume writing to HR prep — they covered everything."
+                    data-init="SB">
+                    <div class="placed-avatar">SB</div>
+                    <div class="placed-name">Sachin Bhosale</div>
+                    <div class="placed-role">React Developer</div>
+                    <div class="placed-company">Capgemini</div>
+                    <div class="placed-pkg">₹7.5 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+                <div class="placed-card reveal-smooth" data-name="Pooja Desale" data-role="QA Engineer"
+                    data-company="Zensar, Pune" data-pkg="₹6 LPA" data-course="Java Full Stack" data-batch="2023-24"
+                    data-quote="The Selenium and TestNG modules were very practical. Got my first job at Zensar within 5 months."
+                    data-init="PD">
+                    <div class="placed-avatar">PD</div>
+                    <div class="placed-name">Pooja Desale</div>
+                    <div class="placed-role">QA Engineer</div>
+                    <div class="placed-company">Zensar, Pune</div>
+                    <div class="placed-pkg">₹6 LPA</div>
+                    <button class="placed-view-btn">View Profile <ion-icon
+                            name="arrow-forward-outline"></ion-icon></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <h2>Ready to Be Our Next <span class="gradient-text">Success Story?</span></h2>
+                <p>Enroll today and join 3000+ placed alumni building thriving tech careers.</p><a href="contact.html"
+                    class="btn-primary">Start Your Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Modal -->
+    <div class="profile-modal-backdrop" id="profileModal">
+        <div class="profile-modal">
+            <div class="pm-header">
+                <div class="pm-avatar" id="pmAvatar">RK</div>
+                <div class="pm-info">
+                    <h3 id="pmName">Student Name</h3>
+                    <p class="pm-role" id="pmRole">Role</p>
+                </div>
+                <button class="pm-close" id="pmClose"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="pm-body">
+                <div class="pm-row"><ion-icon name="business-outline"></ion-icon>
+                    <div>
+                        <div class="pm-label">Company</div>
+                        <div class="pm-val" id="pmCompany">-</div>
+                    </div>
+                </div>
+                <div class="pm-row"><ion-icon name="cash-outline"></ion-icon>
+                    <div>
+                        <div class="pm-label">Package</div>
+                        <div class="pm-val" id="pmPkg">-</div>
+                    </div>
+                </div>
+                <div class="pm-row"><ion-icon name="school-outline"></ion-icon>
+                    <div>
+                        <div class="pm-label">Course Completed</div>
+                        <div class="pm-val" id="pmCourse">-</div>
+                    </div>
+                </div>
+                <div class="pm-row"><ion-icon name="calendar-outline"></ion-icon>
+                    <div>
+                        <div class="pm-label">Batch</div>
+                        <div class="pm-val" id="pmBatch">-</div>
+                    </div>
+                </div>
+                <div class="pm-quote" id="pmQuote">"..."</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-box" style="margin-bottom: 20px;">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </a>
+                    <p>TechnoKraft Training & Solution Pvt. Ltd. is dedicated to building high-impact tech careers with
+                        integrity, transparency, and a 100% placement guarantee.</p>
+
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/tts.net.in/" target="_blank" aria-label="Facebook"><ion-icon
+                                name="logo-facebook"></ion-icon></a>
+                        <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank"
+                            aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="https://www.linkedin.com/company/ttsnashik/" target="_blank"
+                            aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://www.youtube.com/@technokraft-tts455" target="_blank"
+                            aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Courses</h4>
+                    <a href="courses.html#full-stack">Java Full Stack</a>
+                    <a href="courses.html#data-science">Data Science & AI</a>
+                    <a href="courses.html#devops">DevOps / Cloud</a>
+                    <a href="courses.html#web-dev">Web Development</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">
+                        <ion-icon name="location-outline"></ion-icon> 1st Floor, Kanchwala Avenue, Above Viju’s Dabeli,
+                        Thatte Nagar Marg, College Road, Nashik, Maharashtra 422005, India
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="call-outline"></ion-icon> +91-8645628278
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="mail-outline"></ion-icon> info@tts.net.in
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px;">
+                        <ion-icon name="time-outline"></ion-icon> 09:30 am - 08:30 pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="index.html" style="color: inherit; text-decoration: none;">TechnoKraft
+                        Training & Solution Pvt. Ltd.</a> All rights reserved. | Krafting Your Skills</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Profile Modal Logic
+        const profileModal = document.getElementById('profileModal');
+        const pmClose = document.getElementById('pmClose');
+        document.querySelectorAll('.placed-view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const card = btn.closest('.placed-card');
+                document.getElementById('pmAvatar').textContent = card.dataset.init;
+                document.getElementById('pmName').textContent = card.dataset.name;
+                document.getElementById('pmRole').textContent = card.dataset.role;
+                document.getElementById('pmCompany').textContent = card.dataset.company;
+                document.getElementById('pmPkg').textContent = card.dataset.pkg;
+                document.getElementById('pmCourse').textContent = card.dataset.course;
+                document.getElementById('pmBatch').textContent = card.dataset.batch;
+                document.getElementById('pmQuote').textContent = '"' + card.dataset.quote + '"';
+                profileModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        function closeProfileModal() { profileModal.classList.remove('open'); document.body.style.overflow = ''; }
+        pmClose.addEventListener('click', closeProfileModal);
+        profileModal.addEventListener('click', e => { if (e.target === profileModal) closeProfileModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProfileModal(); });
+    </script>
+</body>
+
+</html>

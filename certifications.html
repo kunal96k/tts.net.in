@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certified Students | IT Certifications Nashik - TechnoKraft</title>
+    <link rel="icon" type="image/png" href="images/tts_logo.png">
+    <meta name="description"
+        content="Official AWS Exam Center in Nashik. Get global certifications in AWS, Java, Data Science, and DevOps at TechnoKraft Training & Solution.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tts.net.in/certifications.html">
+    <meta property="og:title" content="Certified Students | IT Certifications Nashik - TechnoKraft">
+    <meta property="og:description" content="Best IT Training Institute in Nashik">
+    <meta property="og:image" content="https://tts.net.in/images/tts_logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tts.net.in/certifications.html">
+    <meta property="twitter:title" content="Certified Students | IT Certifications Nashik - TechnoKraft">
+    <meta property="twitter:description" content="Best IT Training Institute in Nashik">
+    <meta property="twitter:image" content="https://tts.net.in/images/tts_logo.png">
+    
+    <link rel="canonical" href="https://tts.net.in/certifications.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Sanchez&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .cert-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 22px;
+            padding: 30px 26px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+
+        .cert-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cert-badge-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: rgba(229, 57, 53, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 18px;
+        }
+
+        .cert-badge-icon.blue {
+            background: rgba(33, 150, 243, 0.1);
+        }
+
+        .cert-badge-icon.green {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .cert-badge-icon.gold {
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .cert-badge-icon.purple {
+            background: rgba(156, 39, 176, 0.1);
+        }
+
+        .cert-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .cert-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .cert-count {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .cert-count ion-icon {
+            color: var(--primary);
+        }
+
+        .cert-highlight {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        @media(max-width:640px) {
+            .cert-highlight {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cert-highlight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cert-highlight-card ion-icon {
+            font-size: 36px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .cert-highlight-card h4 {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0 0 4px;
+        }
+
+        .cert-highlight-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader-content">
+            <div class="logo-box" style="justify-content:center;margin-bottom:20px"><img src="images/tts_logo.png"
+                    alt="TechnoKraft Logo">
+                <div class="brand-text"><span class="brand-main">TechnoKraft</span><span class="brand-sub">Training &
+                        Solution Pvt. Ltd.</span></div>
+            </div>
+            <div class="loader-bar">
+                <div class="loader-progress" id="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-progress"></div>
+    <div class="scene-3d">
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+    </div>
+    <div class="grid-pattern"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-box">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text">
+                    <span class="brand-main">TechnoKraft</span>
+                    <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                </div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <div class="sidebar-logo">
+                    <div class="logo-box">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="index.html">Home</a>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Courses</a>
+                    <div class="dropdown-menu">
+                        <a href="courses.html">All Courses</a>
+
+                        <span class="dropdown-header">[ Short Learning ]</span>
+                        <a href="crash-courses.html">Crash Courses</a>
+                        <a href="workshops.html">Workshops</a>
+                        <a href="sessions-seminars.html">Sessions & Seminars</a>
+                        <div class="sub-menu">
+                            <a href="career-guidance.html">Career Guidance Sessions</a>
+                            <a href="resume-building.html">Resume Building Sessions</a>
+                            <a href="interview-preparation.html">Interview Preparation</a>
+                        </div>
+
+                        <span class="dropdown-header">[ Programs ]</span>
+                        <a href="certification-programs.html">Certification Programs</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle active">Students</a>
+                    <div class="dropdown-menu">
+                        <a href="placements.html">Placed Students</a>
+                        <a href="certifications.html" class="active">Certified Students</a>
+                        <a href="testimonials.html">Student Testimonials</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="blogs.html">Blogs</a>
+                        <a href="events.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="jobs.html">Jobs</a>
+                        <a href="videos.html">Videos</a>
+                        <a href="top-institutes.html">Top Institutes in Nashik</a>
+                    </div>
+                </div>
+
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Counseling</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="section-label reveal-smooth">Official AWS Exam Center</div>
+            <h1 class="reveal-scale">Authorized <span class="shimmer-text">Certifications</span></h1>
+            <p class="reveal-smooth">TechnoKraft is the only authorized AWS Exam Center in Nashik, helping students
+                earn globally recognized credentials in Cloud, Java, and Data Science.</p>
+        </div>
+    </section>
+
+    <section class="services-section" style="padding-top:60px">
+        <div class="container">
+            <div class="cert-highlight reveal-smooth">
+                <div class="cert-highlight-card"><ion-icon name="ribbon-outline"></ion-icon>
+                    <div>
+                        <h4>5000+</h4>
+                        <p>Certifications Awarded</p>
+                    </div>
+                </div>
+                <div class="cert-highlight-card"><ion-icon name="school-outline"></ion-icon>
+                    <div>
+                        <h4>12+</h4>
+                        <p>Recognized Certification Programs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="section-header reveal-flip" style="margin-bottom:40px">
+                <div class="section-label reveal-smooth">What We Offer</div>
+                <h2 class="section-title">Industry-Recognized <span class="gradient-text">Certifications</span></h2>
+            </div>
+            <div class="cert-grid">
+                <div class="cert-card reveal-smooth">
+                    <div class="cert-badge-icon"><ion-icon name="code-slash-outline" style="color:#E53935"></ion-icon>
+                    </div>
+                    <h3>Java Full Stack Developer</h3>
+                    <p>Validates expertise in Spring Boot, React, REST APIs, and enterprise-grade Java development.</p>
+                    <div class="cert-count"><ion-icon name="people-outline"></ion-icon> 1200+ Certified</div>
+                </div>
+                <div class="cert-card reveal-smooth">
+                    <div class="cert-badge-icon blue"><ion-icon name="hardware-chip-outline"
+                            style="color:#2196F3"></ion-icon></div>
+                    <h3>Data Science & AI</h3>
+                    <p>Certifies proficiency in Python, ML, Deep Learning, and Power BI for data-driven careers.</p>
+                    <div class="cert-count"><ion-icon name="people-outline"></ion-icon> 900+ Certified</div>
+                </div>
+                <div class="cert-card reveal-smooth">
+                    <div class="cert-badge-icon green"><ion-icon name="cloud-outline" style="color:#4CAF50"></ion-icon>
+                    </div>
+                    <h3>DevOps & Cloud</h3>
+                    <p>Demonstrates mastery of AWS, Docker, Kubernetes, Jenkins, and CI/CD pipelines.</p>
+                    <div class="cert-count"><ion-icon name="people-outline"></ion-icon> 650+ Certified</div>
+                </div>
+                <div class="cert-card reveal-smooth">
+                    <div class="cert-badge-icon blue"><ion-icon name="cloud-done-outline" style="color:#2196F3"></ion-icon>
+                    </div>
+                    <h3>AWS Global Certification</h3>
+                    <p>Official training and examination for AWS Cloud Practitioner, Solutions Architect, and Developer roles.</p>
+                    <div class="cert-count"><ion-icon name="ribbon-outline"></ion-icon> Authorized Exam Center</div>
+                </div>
+                <div class="cert-card reveal-smooth">
+                    <div class="cert-badge-icon gold"><ion-icon name="globe-outline" style="color:#FFC107"></ion-icon>
+                    </div>
+                    <h3>Modern Web Development</h3>
+                    <p>Certifies ability to build responsive, full-featured web applications using modern stacks.</p>
+                    <div class="cert-count"><ion-icon name="people-outline"></ion-icon> 800+ Certified</div>
+                </div>
+                <div class="cert-card reveal-smooth">
+                    <div class="cert-badge-icon purple"><ion-icon name="logo-python" style="color:#9C27B0"></ion-icon>
+                    </div>
+                    <h3>Python Full Stack</h3>
+                    <p>End-to-end Python development certification including Django, Flask, and API integration.</p>
+                    <div class="cert-count"><ion-icon name="people-outline"></ion-icon> 700+ Certified</div>
+                </div>
+                <div class="cert-card reveal-smooth">
+                    <div class="cert-badge-icon"><ion-icon name="megaphone-outline" style="color:#E53935"></ion-icon>
+                    </div>
+                    <h3>Digital Marketing</h3>
+                    <p>Comprehensive SEO, SEM, and social media marketing certification for modern businesses.</p>
+                    <div class="cert-count"><ion-icon name="people-outline"></ion-icon> 400+ Certified</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <h2>Earn Your Industry <span class="gradient-text">Certification Today</span></h2>
+                <p>Stand out with a TechnoKraft certification trusted by 250+ hiring companies across India.</p><a
+                    href="contact.html" class="btn-primary">Get Certified</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-box" style="margin-bottom: 20px;">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text">
+                            <span class="brand-main">TechnoKraft</span>
+                            <span class="brand-sub">Training & Solution Pvt. Ltd.</span>
+                        </div>
+                    </a>
+                    <p>TechnoKraft Training & Solution Pvt. Ltd. is dedicated to building high-impact tech careers with
+                        integrity, transparency, and a 100% placement guarantee.</p>
+
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/tts.net.in/" target="_blank" aria-label="Facebook"><ion-icon
+                                name="logo-facebook"></ion-icon></a>
+                        <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank"
+                            aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="https://www.linkedin.com/company/ttsnashik/" target="_blank"
+                            aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://www.youtube.com/@technokraft-tts455" target="_blank"
+                            aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Courses</h4>
+                    <a href="courses.html#full-stack">Java Full Stack</a>
+                    <a href="courses.html#data-science">Data Science & AI</a>
+                    <a href="courses.html#devops">DevOps / Cloud</a>
+                    <a href="courses.html#web-dev">Web Development</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">
+                        <ion-icon name="location-outline"></ion-icon> 1st Floor, Kanchwala Avenue, Above Viju’s Dabeli,
+                        Thatte Nagar Marg, College Road, Nashik, Maharashtra 422005, India
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="call-outline"></ion-icon> +91-8645628278
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="mail-outline"></ion-icon> info@tts.net.in
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px;">
+                        <ion-icon name="time-outline"></ion-icon> 09:30 am - 08:30 pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="index.html" style="color: inherit; text-decoration: none;">TechnoKraft
+                        Training & Solution Pvt. Ltd.</a> All rights reserved. | Krafting Your Skills</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
