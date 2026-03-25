@@ -2782,3 +2782,4 @@ a {
     background-size: cover;
     background-position: center;
 }
+@media (max-width: 991px) { .hero { background-image: none !important; } }
