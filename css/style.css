@@ -254,8 +254,7 @@ ul {
 }
 
 .logo-box img {
-    transform: translateY(-5px);
-    height: 70px;
+    height: 50px;
     width: auto;
     transition: var(--transition);
 }
@@ -273,7 +272,7 @@ ul {
     font-family: "Michroma", sans-serif;
     color: var(--text-primary);
     font-weight: 500;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     line-height: 1;
     letter-spacing: 0.05rem;
 }
@@ -2782,4 +2781,9 @@ a {
     background-size: cover;
     background-position: center;
 }
-@media (max-width: 991px) { .hero { background-image: none !important; } }
+
+@media (max-width: 991px) {
+    .hero {
+        background-image: none !important;
+    }
+}
