@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLightbox } from '../components/LightboxContext';
+import AICounselorModal from '../components/AICounselorModal';
 
 export default function Home() {
   const { openLightbox } = useLightbox();
+  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [goalInput, setGoalInput] = useState('');
 
   useEffect(() => {
     document.title = "Home | TechnoKraft - Best IT Courses Institute in Nashik";
@@ -157,18 +160,29 @@ export default function Home() {
 
           <div className="suggestion-form">
             <div className="input-container">
-              <textarea id="user-goal" className="suggestion-textarea"
-                placeholder="Example: I am from non-IT background and want to learn software development"></textarea>
+              <textarea
+                id="user-goal"
+                className="suggestion-textarea"
+                value={goalInput}
+                onChange={(e) => setGoalInput(e.target.value)}
+                placeholder="Example: I want to become a Data Scientist, or I want to get a software job in 6 months"
+              ></textarea>
             </div>
-            <button id="get-suggestions-btn" className="btn-primary">
-              <span>Get Suggestions</span>
+            <button
+              id="get-suggestions-btn"
+              className="btn-primary"
+              onClick={() => setIsAiModalOpen(true)}
+            >
+              <span>Get AI Suggestions</span>
               <ion-icon name="sparkles-outline"></ion-icon>
             </button>
           </div>
 
-          <div id="suggestions-results" className="suggestions-results">
-            {/* Results will be injected here */}
-          </div>
+          <AICounselorModal
+            isOpen={isAiModalOpen}
+            onClose={() => setIsAiModalOpen(false)}
+            initialGoal={goalInput}
+          />
         </div>
       </div>
     </section>
