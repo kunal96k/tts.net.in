@@ -3178,3 +3178,8 @@ html {
     line-height: 1.7;
     margin: 0;
 }
+
+/* AI Counselor inline spinner */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

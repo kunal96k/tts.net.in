@@ -1,12 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLightbox } from '../components/LightboxContext';
-import AICounselorModal from '../components/AICounselorModal';
+import { getAiRecommendations, saveLeadAndGenerateRoadmap } from '../services/aiRecommendationService';
 
 export default function Home() {
   const { openLightbox } = useLightbox();
-  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+
+  // AI Counselor inline state
   const [goalInput, setGoalInput] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiLoadingStep, setAiLoadingStep] = useState(0);
+  const [aiResult, setAiResult] = useState(null);
+  const [aiError, setAiError] = useState('');
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [leadInfo, setLeadInfo] = useState({ name: '', phone: '', email: '' });
+  const [roadmapResult, setRoadmapResult] = useState(null);
+
+  const AI_STEPS = [
+    '🤖 Understanding your goal...',
+    '🔍 Comparing 115+ TechnoKraft courses...',
+    '📈 Finding best matches & career paths...'
+  ];
+
+  const handleGetSuggestions = async () => {
+    if (!goalInput.trim()) {
+      setAiError('Please enter your career goal first.');
+      return;
+    }
+    setAiError('');
+    setAiResult(null);
+    setRoadmapResult(null);
+    setShowLeadForm(false);
+    setAiLoading(true);
+    setAiLoadingStep(0);
+    const t1 = setTimeout(() => setAiLoadingStep(1), 600);
+    const t2 = setTimeout(() => setAiLoadingStep(2), 1200);
+    try {
+      const res = await getAiRecommendations({ goal: goalInput });
+      setAiResult(res);
+    } catch (err) {
+      setAiError('Something went wrong. Please try again.');
+    } finally {
+      clearTimeout(t1); clearTimeout(t2);
+      setAiLoading(false);
+    }
+  };
+
+  const handleLeadSubmit = async (e) => {
+    e.preventDefault();
+    if (!leadInfo.name || !leadInfo.phone) return;
+    setAiLoading(true);
+    try {
+      const res = await saveLeadAndGenerateRoadmap({
+        ...leadInfo, goal: goalInput,
+        recommendedCourse: selectedCourse || aiResult?.recommendations?.[0]?.courseName || 'IT Specialization'
+      });
+      setRoadmapResult(res);
+      setShowLeadForm(false);
+    } catch (err) {}
+    finally { setAiLoading(false); }
+  };
 
   useEffect(() => {
     document.title = "Home | TechnoKraft - Best IT Courses Institute in Nashik";
@@ -144,7 +198,7 @@ export default function Home() {
       </div>
     </section>
 
-    {/* AI Course Suggestion Section */}
+    {/* AI Course Suggestion Section — Inline Results */}
     <section className="reveal-smooth ai-suggestion-section" id="ai-suggestion">
       <div className="container">
         <div className="suggestion-card-wrapper reveal-scale">
@@ -154,35 +208,156 @@ export default function Home() {
             </div>
             <h2 className="section-title">Not Sure What to Learn?</h2>
             <p className="section-subtitle">
-              Tell us your goal and we'll suggest the best course for you.
+              Tell us your goal and our AI Career Counselor will suggest the best courses for you.
             </p>
           </div>
 
+          {/* Input Form */}
           <div className="suggestion-form">
             <div className="input-container">
               <textarea
                 id="user-goal"
                 className="suggestion-textarea"
                 value={goalInput}
-                onChange={(e) => setGoalInput(e.target.value)}
+                onChange={(e) => { setGoalInput(e.target.value); setAiError(''); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleGetSuggestions(); } }}
                 placeholder="Example: I want to become a Data Scientist, or I want to get a software job in 6 months"
               ></textarea>
             </div>
+            {aiError && <p style={{ color: 'var(--primary)', fontSize: '13px', margin: '4px 0 8px', fontWeight: 600 }}>{aiError}</p>}
             <button
               id="get-suggestions-btn"
               className="btn-primary"
-              onClick={() => setIsAiModalOpen(true)}
+              onClick={handleGetSuggestions}
+              disabled={aiLoading}
+              style={{ opacity: aiLoading ? 0.75 : 1 }}
             >
-              <span>Get AI Suggestions</span>
+              <span>{aiLoading ? 'Analyzing...' : 'Get AI Suggestions'}</span>
               <ion-icon name="sparkles-outline"></ion-icon>
             </button>
           </div>
 
-          <AICounselorModal
-            isOpen={isAiModalOpen}
-            onClose={() => setIsAiModalOpen(false)}
-            initialGoal={goalInput}
-          />
+          {/* Loading Steps */}
+          {aiLoading && (
+            <div style={{ marginTop: '28px', textAlign: 'center', padding: '32px 20px', background: 'var(--bg-secondary)', borderRadius: '20px', border: '1px solid var(--border-light)' }}>
+              <div style={{ display: 'inline-flex', width: '48px', height: '48px', borderRadius: '50%', border: '3px solid var(--primary)', borderTopColor: 'transparent', animation: 'spin 0.8s linear infinite', marginBottom: '16px' }}></div>
+              <p style={{ fontWeight: 700, fontSize: '16px', color: 'var(--primary)', margin: '0 0 6px' }}>{AI_STEPS[aiLoadingStep]}</p>
+              <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>Verifying TechnoKraft official course catalog...</p>
+            </div>
+          )}
+
+          {/* Inline Results */}
+          {aiResult && !aiLoading && (
+            <div style={{ marginTop: '32px' }}>
+
+              {/* Summary */}
+              <div style={{ background: 'rgba(229,57,53,0.06)', border: '1px solid rgba(229,57,53,0.2)', borderRadius: '16px', padding: '16px 20px', marginBottom: '20px' }}>
+                <p style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', lineHeight: '1.6', whiteSpace: 'pre-line' }}>{aiResult.summary}</p>
+              </div>
+
+              {/* Counselor Question (vague input) */}
+              {aiResult.nextQuestion && (
+                <div style={{ background: 'rgba(255,193,7,0.08)', border: '1px solid rgba(255,193,7,0.3)', borderRadius: '16px', padding: '18px 22px', marginBottom: '20px' }}>
+                  <p style={{ margin: '0 0 6px', fontWeight: 800, fontSize: '14px' }}>💡 Counselor asks:</p>
+                  <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)', whiteSpace: 'pre-line', lineHeight: '1.8' }}>{aiResult.nextQuestion}</p>
+                </div>
+              )}
+
+              {/* Recommendation Cards */}
+              {aiResult.recommendations.length > 0 && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '28px' }}>
+                  {aiResult.recommendations.map((rec) => (
+                    <div key={rec.courseId} style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '20px', padding: '24px' }}>
+                      {/* Card Header */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
+                        <div>
+                          <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--primary)', background: 'rgba(229,57,53,0.1)', padding: '3px 10px', borderRadius: '10px' }}>
+                            #{rec.courseId} &bull; {rec.confidence} Confidence
+                          </span>
+                          <h4 style={{ margin: '8px 0 0', fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)' }}>{rec.courseName}</h4>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--primary)', background: 'rgba(229,57,53,0.08)', padding: '6px 14px', borderRadius: '14px', border: '1px solid rgba(229,57,53,0.2)' }}>{rec.matchScore}% Match</div>
+                          <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>Fees: {rec.fees}</span>
+                        </div>
+                      </div>
+                      {/* Reason */}
+                      <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '14px' }}><strong>Why Recommended:</strong> {rec.reason}</p>
+                      {/* Skills */}
+                      <div style={{ marginBottom: '14px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '8px' }}>Key Skills:</span>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                          {rec.skills.map((sk, i) => (
+                            <span key={i} style={{ fontSize: '12px', fontWeight: 600, padding: '3px 10px', borderRadius: '8px', background: 'var(--bg-card)', border: '1px solid var(--border-light)', color: 'var(--text-primary)' }}>✓ {sk}</span>
+                          ))}
+                        </div>
+                      </div>
+                      {/* Roles */}
+                      <div style={{ marginBottom: '14px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '4px' }}>Career Roles:</span>
+                        <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>{rec.careerRoles.join(' • ')}</p>
+                      </div>
+                      {/* Learning Path */}
+                      <div style={{ background: 'var(--bg-card)', padding: '14px 18px', borderRadius: '12px', border: '1px solid var(--border-light)', marginBottom: '14px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '8px' }}>Learning Path:</span>
+                        <ol style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
+                          {rec.learningPath.map((step, i) => <li key={i}>{step}</li>)}
+                        </ol>
+                      </div>
+                      <button
+                        className="btn-secondary"
+                        onClick={() => { setSelectedCourse(rec.courseName); setShowLeadForm(true); }}
+                        style={{ width: '100%', borderRadius: '12px', fontSize: '13px', fontWeight: 700, padding: '10px' }}
+                      >
+                        Get Free 5-Month Personalized Roadmap &amp; Consultation
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Lead Form */}
+              {showLeadForm && (
+                <div style={{ background: 'linear-gradient(135deg,rgba(229,57,53,0.07),rgba(200,164,94,0.07))', border: '1px solid var(--primary)', borderRadius: '20px', padding: '24px', marginBottom: '24px' }}>
+                  <h4 style={{ margin: '0 0 6px', fontSize: '17px', fontWeight: 800 }}>Get Personalized Guidance for <em>{selectedCourse}</em></h4>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>Enter your details to receive a custom 5-month learning roadmap from a TechnoKraft mentor.</p>
+                  <form onSubmit={handleLeadSubmit} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: '10px' }}>
+                    <input type="text" required placeholder="Full Name *" value={leadInfo.name} onChange={(e) => setLeadInfo({ ...leadInfo, name: e.target.value })} style={{ padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }} />
+                    <input type="tel" required placeholder="Mobile Number *" value={leadInfo.phone} onChange={(e) => setLeadInfo({ ...leadInfo, phone: e.target.value })} style={{ padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }} />
+                    <input type="email" placeholder="Email (optional)" value={leadInfo.email} onChange={(e) => setLeadInfo({ ...leadInfo, email: e.target.value })} style={{ padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }} />
+                    <button type="submit" className="btn-primary" style={{ borderRadius: '10px', fontWeight: 700, fontSize: '13px', padding: '10px' }}>Generate Roadmap</button>
+                  </form>
+                </div>
+              )}
+
+              {/* Roadmap Result */}
+              {roadmapResult && (
+                <div style={{ background: 'var(--bg-secondary)', border: '1px solid rgba(76,175,80,0.3)', borderRadius: '20px', padding: '24px', marginBottom: '24px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                    <ion-icon name="checkmark-circle" style={{ fontSize: '24px', color: '#4caf50' }}></ion-icon>
+                    <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 800 }}>Roadmap Ready! ({roadmapResult.leadId})</h4>
+                  </div>
+                  <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '16px' }}>{roadmapResult.message} Our team will contact you shortly.</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {roadmapResult.roadmap.map((item, i) => (
+                      <div key={i} style={{ padding: '12px 16px', background: 'var(--bg-card)', borderRadius: '10px', borderLeft: '4px solid var(--primary)' }}>
+                        <strong style={{ fontSize: '13px', color: 'var(--primary)' }}>{item.month}: {item.title}</strong>
+                        <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--text-secondary)' }}>{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Reset button */}
+              <div style={{ textAlign: 'center', marginTop: '8px' }}>
+                <button className="btn-secondary" onClick={() => { setAiResult(null); setGoalInput(''); setShowLeadForm(false); setRoadmapResult(null); }} style={{ borderRadius: '12px', fontSize: '13px', padding: '9px 22px' }}>
+                  ↩ Start New Search
+                </button>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </section>
