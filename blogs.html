@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Blog & Career Guidance Articles | TechnoKraft Nashik</title>
+    <link rel="icon" type="image/png" href="images/tts_logo.png">
+    <meta name="description" content="Read career-oriented articles on Java Full Stack, Data Science, SAP Training, Power BI, and Software Testing from TechnoKraft Training & Solution, Nashik.">
+    <meta name="keywords" content="IT Blog Nashik, Full Stack Development Career Guide, Data Science vs Analytics, SAP Training Guide Nashik, TechnoKraft Articles">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="TechnoKraft Training & Solution">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tts.net.in/blogs.html">
+    <meta property="og:title" content="IT Blog & Career Guidance Articles | TechnoKraft Nashik">
+    <meta property="og:description" content="Read career-oriented articles on Java Full Stack, Data Science, SAP Training, Power BI, and Software Testing from TechnoKraft Training & Solution, Nashik.">
+    <meta property="og:image" content="https://tts.net.in/images/tts_logo.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tts.net.in/blogs.html">
+    <meta property="twitter:title" content="IT Blog & Career Guidance Articles | TechnoKraft Nashik">
+    <meta property="twitter:description" content="Read career-oriented articles on Java Full Stack, Data Science, SAP Training, Power BI, and Software Testing from TechnoKraft Training & Solution, Nashik.">
+    <meta property="twitter:image" content="https://tts.net.in/images/tts_logo.png">
+    <link rel="canonical" href="https://tts.net.in/blogs.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Sanchez&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(229, 57, 53, 0.3);
+        }
+
+        /* Thumbnail */
+        .blog-thumb {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .blog-card:hover .blog-thumb img {
+            transform: scale(1.07);
+        }
+
+        .thumb-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+            transition: background 0.3s;
+        }
+
+        .blog-card:hover .thumb-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.7) 100%);
+        }
+
+        .blog-category {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.3);
+        }
+
+        .blog-body {
+            padding: 28px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+
+        .blog-meta span { display: flex; align-items: center; gap: 6px; }
+        .blog-meta ion-icon { font-size: 15px; color: var(--primary); }
+
+        .blog-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .blog-card:hover .blog-title { color: var(--primary); }
+
+        .blog-excerpt {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .blog-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .blog-read-btn {
+            background: none;
+            border: none;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            cursor: pointer;
+            transition: gap 0.3s;
+        }
+
+        .blog-card:hover .blog-read-btn { gap: 10px; }
+
+        .blog-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 48px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.25);
+        }
+
+        /* Read Modal */
+        .blog-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s;
+        }
+
+        .blog-modal-backdrop.open { opacity: 1; pointer-events: all; }
+
+        .blog-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 32px;
+            max-width: 800px;
+            width: 94vw;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: translateY(40px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .blog-modal-backdrop.open .blog-modal { transform: translateY(0); }
+
+        .modal-close {
+            position: sticky;
+            top: 20px;
+            right: 20px;
+            float: right;
+            z-index: 10;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 22px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s;
+            margin-bottom: -40px;
+            margin-right: 20px;
+        }
+
+        .modal-close:hover { background: var(--primary); color: #fff; transform: rotate(90deg); }
+
+        /* Modal hero with real image */
+        .modal-hero {
+            position: relative;
+            height: 260px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .modal-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.75) 100%);
+        }
+
+        .modal-hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 28px 40px;
+        }
+
+        .modal-cat {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 24px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .modal-content-area {
+            padding: 40px;
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--text-secondary);
+        }
+
+        .modal-content-area p { margin-bottom: 24px; }
+
+        .modal-content-area h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-content-area h3::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .blog-cta {
+            background: linear-gradient(135deg, rgba(229,57,53,0.08) 0%, rgba(229,57,53,0.02) 100%);
+            border: 1px solid rgba(229,57,53,0.15);
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .blog-cta h4 { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+        .blog-cta p { font-size: 14px; margin: 0; opacity: 0.8; }
+
+        .btn-blog-cta {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-blog-cta:hover { box-shadow: 0 4px 12px rgba(229,57,53,0.3); color: #fff; }
+
+        @media(max-width: 600px) {
+            .modal-hero-content { padding: 20px 24px; }
+            .modal-title { font-size: 18px; }
+            .modal-content-area { padding: 32px 24px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader-content">
+            <div class="logo-box" style="justify-content:center;margin-bottom:20px">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+            </div>
+            <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+        </div>
+    </div>
+    <div class="scroll-progress"></div>
+    <div class="scene-3d">
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+    </div>
+    <div class="grid-pattern"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-box">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <div class="sidebar-logo">
+                    <div class="logo-box">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+                    </div>
+                </div>
+                <a href="index.html">Home</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Courses</a>
+                    <div class="dropdown-menu">
+                        <a href="courses.html">All Courses</a>
+                        <span class="dropdown-header">[ Short Learning ]</span>
+                        <a href="crash-courses.html">Crash Courses</a>
+                        <a href="workshops.html">Workshops</a>
+                        <a href="sessions-seminars.html">Sessions & Seminars</a>
+                        <div class="sub-menu">
+                            <a href="career-guidance.html">Career Guidance Sessions</a>
+                            <a href="resume-building.html">Resume Building Sessions</a>
+                            <a href="interview-preparation.html">Interview Preparation</a>
+                        </div>
+                        <span class="dropdown-header">[ Programs ]</span>
+                        <a href="certification-programs.html">Certification Programs</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Students</a>
+                    <div class="dropdown-menu">
+                        <a href="placements.html">Placed Students</a>
+                        <a href="certifications.html">Certified Students</a>
+                        <a href="testimonials.html">Student Testimonials</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle active">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="blogs.html" class="active">Blogs</a>
+                        <a href="events.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="jobs.html">Jobs</a>
+                        <a href="videos.html">Videos</a>
+                        <a href="top-institutes.html">Top Institutes in Nashik</a>
+                    </div>
+                </div>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Counseling</a>
+            </div>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="section-label reveal-smooth">Knowledge Hub</div>
+            <h1 class="reveal-scale">TechnoKraft <span class="shimmer-text">Knowledge Hub</span></h1>
+            <p class="reveal-smooth">Read career-focused articles, course guides, and practical learning insights from TechnoKraft Training & Solution, Nashik.</p>
+        </div>
+    </section>
+
+    <section class="services-section" style="padding-top:60px">
+        <div class="container">
+            <div class="blog-filters reveal-smooth">
+                <button class="filter-btn active" data-filter="all">All Articles</button>
+                <button class="filter-btn" data-filter="career">Career Support</button>
+                <button class="filter-btn" data-filter="java">Full Stack</button>
+                <button class="filter-btn" data-filter="data">Data Courses</button>
+                <button class="filter-btn" data-filter="devops">SAP Training</button>
+                <button class="filter-btn" data-filter="web">Power BI</button>
+                <button class="filter-btn" data-filter="ai">Placement Guidance</button>
+            </div>
+
+            <div class="blog-grid" id="blogGrid">
+
+                <!-- Blog 1 — Full Stack / TechnoKraft -->
+                <div class="blog-card reveal-smooth" data-cat="java"
+                     data-img="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80">
+                    <div class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80" alt="TechnoKraft IT Training Nashik" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                        <span class="blog-category">Full Stack</span>
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span><ion-icon name="calendar-outline"></ion-icon> Mar 15, 2026</span>
+                            <span><ion-icon name="time-outline"></ion-icon> 8 min read</span>
+                        </div>
+                        <h3 class="blog-title">TechnoKraft Training & Solution: Building Job-Ready IT Skills in Nashik</h3>
+                        <p class="blog-excerpt">TechnoKraft helps students build practical IT skills through expert training, hands-on practice, certification guidance, and career-focused learning.</p>
+                        <div class="blog-footer">
+                            <span class="blog-read-btn">Read Full Article <ion-icon name="arrow-forward-outline"></ion-icon></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog 2 — Full Stack Development -->
+                <div class="blog-card reveal-smooth" data-cat="data"
+                     data-img="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80">
+                    <div class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" alt="Full Stack Development Course" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                        <span class="blog-category">Full Stack</span>
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span><ion-icon name="calendar-outline"></ion-icon> Mar 10, 2026</span>
+                            <span><ion-icon name="time-outline"></ion-icon> 12 min read</span>
+                        </div>
+                        <h3 class="blog-title">Full Stack Development Course: A Career Path for Freshers</h3>
+                        <p class="blog-excerpt">Learn how Full Stack Development helps freshers understand frontend, backend, databases, and real-time project development for IT careers.</p>
+                        <div class="blog-footer">
+                            <span class="blog-read-btn">Read Full Article <ion-icon name="arrow-forward-outline"></ion-icon></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog 3 — Data Science vs Analytics -->
+                <div class="blog-card reveal-smooth" data-cat="career"
+                     data-img="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80">
+                    <div class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Data Science vs Data Analytics" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                        <span class="blog-category">Data Courses</span>
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span><ion-icon name="calendar-outline"></ion-icon> Mar 05, 2026</span>
+                            <span><ion-icon name="time-outline"></ion-icon> 6 min read</span>
+                        </div>
+                        <h3 class="blog-title">Data Science vs Data Analytics: Which Course Should You Choose?</h3>
+                        <p class="blog-excerpt">Understand the difference between Data Science and Data Analytics, including tools, skills, career scope, and learning path for beginners.</p>
+                        <div class="blog-footer">
+                            <span class="blog-read-btn">Read Full Article <ion-icon name="arrow-forward-outline"></ion-icon></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog 4 — SAP Training -->
+                <div class="blog-card reveal-smooth" data-cat="devops"
+                     data-img="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80">
+                    <div class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="SAP Training for Beginners" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                        <span class="blog-category">SAP Training</span>
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span><ion-icon name="calendar-outline"></ion-icon> Feb 28, 2026</span>
+                            <span><ion-icon name="time-outline"></ion-icon> 10 min read</span>
+                        </div>
+                        <h3 class="blog-title">SAP Training for Beginners: Skills, Career Scope, and Benefits</h3>
+                        <p class="blog-excerpt">Explore how SAP training helps students and professionals understand ERP systems, business workflows, and career opportunities.</p>
+                        <div class="blog-footer">
+                            <span class="blog-read-btn">Read Full Article <ion-icon name="arrow-forward-outline"></ion-icon></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog 5 — Power BI -->
+                <div class="blog-card reveal-smooth" data-cat="web"
+                     data-img="https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=600&q=80">
+                    <div class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=600&q=80" alt="Power BI Training Dashboards" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                        <span class="blog-category">Power BI</span>
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span><ion-icon name="calendar-outline"></ion-icon> Feb 20, 2026</span>
+                            <span><ion-icon name="time-outline"></ion-icon> 7 min read</span>
+                        </div>
+                        <h3 class="blog-title">Power BI Training: Learn Dashboards, Reports, and Data Visualization</h3>
+                        <p class="blog-excerpt">Power BI helps learners create interactive dashboards, analyze business data, and present insights through professional reports and visualizations.</p>
+                        <div class="blog-footer">
+                            <span class="blog-read-btn">Read Full Article <ion-icon name="arrow-forward-outline"></ion-icon></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog 6 — Placement Guidance -->
+                <div class="blog-card reveal-smooth" data-cat="ai"
+                     data-img="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80">
+                    <div class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80" alt="TechnoKraft Placement Support" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                        <span class="blog-category">Placement</span>
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span><ion-icon name="calendar-outline"></ion-icon> Feb 12, 2026</span>
+                            <span><ion-icon name="time-outline"></ion-icon> 15 min read</span>
+                        </div>
+                        <h3 class="blog-title">How TechnoKraft Supports Students with Training and Placement Guidance</h3>
+                        <p class="blog-excerpt">TechnoKraft supports learners with practical sessions, resume guidance, interview preparation, and placement-oriented training support.</p>
+                        <div class="blog-footer">
+                            <span class="blog-read-btn">Read Full Article <ion-icon name="arrow-forward-outline"></ion-icon></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Read Modal -->
+    <div class="blog-modal-backdrop" id="blogModal">
+        <div class="blog-modal">
+            <button class="modal-close" id="closeBlogModal"><ion-icon name="close-outline"></ion-icon></button>
+            <div class="modal-hero">
+                <img id="modalHeroImg" src="" alt="">
+                <div class="modal-hero-overlay"></div>
+                <div class="modal-hero-content">
+                    <span class="modal-cat" id="modalCat">Category</span>
+                    <h2 class="modal-title" id="modalTitle">Full Article Title</h2>
+                    <div class="modal-meta">
+                        <span id="modalDate">Jan 01, 2026</span>
+                        <span id="modalReadTime">5 min read</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-content-area" id="modalContent"></div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <h2>Start Your <span class="gradient-text">Learning Journey</span></h2>
+                <p>Connect with TechnoKraft for course guidance, practical training, and placement-oriented career support.</p>
+                <a href="contact.html" class="btn-primary">Get Course Guidance</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-box" style="margin-bottom: 20px;">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+                    </a>
+                    <p>TechnoKraft is dedicated to building practical IT skills through hands-on training, career guidance, and placement-oriented learning support.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/tts.net.in/" target="_blank" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+                        <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="https://www.linkedin.com/company/ttsnashik/" target="_blank" aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://www.youtube.com/@technokraft-tts455" target="_blank" aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Courses</h4>
+                    <a href="courses.html#full-stack">Java Full Stack</a>
+                    <a href="courses.html#data-science">Data Science & AI</a>
+                    <a href="courses.html#devops">DevOps / Cloud</a>
+                    <a href="courses.html#web-dev">Web Development</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">
+                        <ion-icon name="location-outline"></ion-icon> 1st Floor, Kanchwala Avenue, Above Viju's Dabeli, Thatte Nagar Marg, College Road, Nashik, Maharashtra 422005, India
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="call-outline"></ion-icon> +91-8645628278
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="mail-outline"></ion-icon> info@tts.net.in
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px;">
+                        <ion-icon name="time-outline"></ion-icon> 09:30 am - 08:30 pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="index.html" style="color: inherit; text-decoration: none;">TechnoKraft</a> All rights reserved. | Krafting Your Skills</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const blogs = {
+            "TechnoKraft Training & Solution: Building Job-Ready IT Skills in Nashik": `
+                <p>TechnoKraft Training & Solution focuses on helping students build practical and career-ready IT skills. The training approach includes concept clarity, hands-on practice, project-based learning, and guidance for job preparation.</p>
+                <h3>Practical Learning Approach</h3>
+                <p>Students get exposure to real-time examples, lab practice, and industry-oriented learning instead of only theory-based training.</p>
+                <h3>Career-Focused Training</h3>
+                <p>The institute provides guidance for technical skills, communication, resume preparation, and interview readiness.</p>
+                <h3>Courses for Different Career Goals</h3>
+                <p>Learners can choose courses such as Full Stack Development, Data Science, Data Analytics, SAP, Power BI, Cloud, DevOps, and Software Testing based on their career interest.</p>
+                <div class="blog-cta"><div><h4>Start Your IT Career Journey</h4><p>Connect with TechnoKraft for practical training and career guidance.</p></div><a href="contact.html" class="btn-blog-cta">Contact Now</a></div>`,
+            "Full Stack Development Course: A Career Path for Freshers": `
+                <p>Full Stack Development is a strong career option for freshers who want to learn both frontend and backend development. It helps students understand how complete web applications are designed, developed, and connected with databases.</p>
+                <h3>Frontend Development</h3>
+                <p>Students learn how to create responsive and user-friendly interfaces using HTML, CSS, JavaScript, and modern frontend tools.</p>
+                <h3>Backend Development</h3>
+                <p>Backend training helps learners understand server-side logic, APIs, database connection, authentication, and application flow.</p>
+                <h3>Project-Based Practice</h3>
+                <p>Building real projects helps students improve confidence and makes their resume stronger for interviews.</p>
+                <div class="blog-cta"><div><h4>Learn Full Stack Development</h4><p>Build practical web development skills with guided training.</p></div><a href="contact.html" class="btn-blog-cta">View Course Details</a></div>`,
+            "Data Science vs Data Analytics: Which Course Should You Choose?": `
+                <p>Data Science and Data Analytics are both popular career paths, but their focus is different. Data Analytics is mainly about understanding data, creating reports, and finding insights, while Data Science also includes statistics, machine learning, and predictive modeling.</p>
+                <h3>Data Analytics</h3>
+                <p>Data Analytics is suitable for students who want to work with Excel, SQL, Power BI, dashboards, reports, and business insights.</p>
+                <h3>Data Science</h3>
+                <p>Data Science is suitable for learners interested in Python, statistics, machine learning, data modeling, and advanced analysis.</p>
+                <h3>How to Choose?</h3>
+                <p>If you like business reports and dashboards, choose Data Analytics. If you like coding, mathematics, and machine learning, choose Data Science.</p>
+                <div class="blog-cta"><div><h4>Confused Between Data Courses?</h4><p>Get course guidance based on your background and career goal.</p></div><a href="contact.html" class="btn-blog-cta">Talk to Mentor</a></div>`,
+            "SAP Training for Beginners: Skills, Career Scope, and Benefits": `
+                <p>SAP is widely used by businesses to manage finance, materials, sales, operations, and other business processes. SAP training helps students understand ERP concepts and prepares them for business application roles.</p>
+                <h3>Why Learn SAP?</h3>
+                <p>SAP skills are useful for students who want to work in ERP support, business process management, implementation support, or functional consultant roles.</p>
+                <h3>Beginner-Friendly Learning</h3>
+                <p>Students can start with SAP basics and gradually understand modules, transactions, business workflows, and real-time usage.</p>
+                <h3>Career Benefits</h3>
+                <p>SAP knowledge can open career opportunities in IT companies, manufacturing, finance, logistics, and enterprise-level organizations.</p>
+                <div class="blog-cta"><div><h4>Explore SAP Training</h4><p>Learn SAP concepts with practical and career-focused guidance.</p></div><a href="contact.html" class="btn-blog-cta">Know More</a></div>`,
+            "Power BI Training: Learn Dashboards, Reports, and Data Visualization": `
+                <p>Power BI is a powerful tool for creating dashboards, business reports, and interactive data visualizations. It is useful for students who want to enter data analytics, business intelligence, and reporting roles.</p>
+                <h3>Dashboard Creation</h3>
+                <p>Students learn how to convert raw data into clean dashboards using charts, filters, cards, and visual reports.</p>
+                <h3>Business Reporting</h3>
+                <p>Power BI helps learners present data in a simple and professional way for business decision-making.</p>
+                <h3>Career Scope</h3>
+                <p>Power BI skills are useful for roles such as Data Analyst, MIS Executive, Business Analyst, and Reporting Analyst.</p>
+                <div class="blog-cta"><div><h4>Learn Power BI Practically</h4><p>Build dashboard and reporting skills for data-focused jobs.</p></div><a href="contact.html" class="btn-blog-cta">Join Training</a></div>`,
+            "How TechnoKraft Supports Students with Training and Placement Guidance": `
+                <p>TechnoKraft supports students not only with technical training but also with career preparation. The goal is to help learners become more confident, skilled, and job-ready.</p>
+                <h3>Resume Guidance</h3>
+                <p>Students receive guidance to create professional resumes that highlight skills, projects, training, and certifications properly.</p>
+                <h3>Interview Preparation</h3>
+                <p>Mock interviews, technical questions, and communication practice help students prepare for real interview situations.</p>
+                <h3>Placement-Oriented Support</h3>
+                <p>Students are guided with career direction, skill improvement, and suitable job or internship preparation based on their course and profile.</p>
+                <div class="blog-cta"><div><h4>Prepare for Your Career</h4><p>Get training support, interview guidance, and placement-focused preparation.</p></div><a href="contact.html" class="btn-blog-cta">Contact TechnoKraft</a></div>`
+        };
+
+        // Modal Logic
+        const blogModal = document.getElementById('blogModal');
+        const closeBtn = document.getElementById('closeBlogModal');
+
+        document.querySelectorAll('.blog-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title    = card.querySelector('.blog-title').textContent;
+                const cat      = card.querySelector('.blog-category').textContent;
+                const date     = card.querySelector('.blog-meta span:first-child').textContent;
+                const time     = card.querySelector('.blog-meta span:last-child').textContent;
+                const imgSrc   = card.dataset.img;
+
+                document.getElementById('modalTitle').textContent    = title;
+                document.getElementById('modalCat').textContent      = cat;
+                document.getElementById('modalDate').textContent     = date;
+                document.getElementById('modalReadTime').textContent = time;
+                document.getElementById('modalHeroImg').src          = imgSrc;
+                document.getElementById('modalHeroImg').alt          = title;
+                document.getElementById('modalContent').innerHTML    = blogs[title] || '<p>Coming soon...</p>';
+
+                blogModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            blogModal.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+
+        blogModal.addEventListener('click', e => {
+            if (e.target === blogModal) {
+                blogModal.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Filter Logic
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                let count = 0;
+                document.querySelectorAll('.blog-card').forEach(card => {
+                    const match = filter === 'all' || card.dataset.cat === filter;
+                    card.style.display = match ? '' : 'none';
+                    if (match) {
+                        card.classList.remove('visible');
+                        void card.offsetHeight;
+                        setTimeout(() => card.classList.add('visible'), 50 + count * 60);
+                        count++;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

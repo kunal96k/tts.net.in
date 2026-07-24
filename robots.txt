@@ -1,0 +1,10 @@
+# Robots.txt for TechnoKraft Training & Solution Nashik
+User-agent: *
+Allow: /
+
+# Disallow sensitive asset/temp paths
+Disallow: /css/*.map$
+Disallow: /js/*.map$
+
+# Sitemap location
+Sitemap: https://tts.net.in/sitemap.xml

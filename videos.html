@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos | IT Learning & Campus Life - TechnoKraft Nashik</title>
+    <link rel="icon" type="image/png" href="images/tts_logo.png">
+    <meta name="description"
+        content="Watch TechnoKraft's tutorial videos, student success stories, campus tours, and workshop recordings. Free IT learning content from Nashik's top institute.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tts.net.in/videos.html">
+    <meta property="og:title" content="Videos | IT Learning & Campus Life - TechnoKraft Nashik">
+    <meta property="og:description" content="Best IT Training Institute in Nashik">
+    <meta property="og:image" content="https://tts.net.in/images/tts_logo.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tts.net.in/videos.html">
+    <meta property="twitter:title" content="Videos | IT Learning & Campus Life - TechnoKraft Nashik">
+    <meta property="twitter:description" content="Best IT Training Institute in Nashik">
+    <meta property="twitter:image" content="https://tts.net.in/images/tts_logo.png">
+    <link rel="canonical" href="https://tts.net.in/videos.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&family=Sanchez&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/premium.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 24px;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 22px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(229, 57, 53, 0.25);
+        }
+
+        /* Thumbnail */
+        .video-thumb {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* YouTube thumbnail image */
+        .video-thumb img.yt-thumb-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .video-card:hover .video-thumb img.yt-thumb-img {
+            transform: scale(1.06);
+        }
+
+        /* Dark overlay on thumbnail */
+        .video-thumb .thumb-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            transition: background 0.3s;
+        }
+
+        .video-card:hover .thumb-overlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Fallback gradient backgrounds (shown if image fails) */
+        .vt1 { background: linear-gradient(135deg, #1a0808 0%, #3d1515 100%); }
+        .vt2 { background: linear-gradient(135deg, #080e1a 0%, #152040 100%); }
+        .vt3 { background: linear-gradient(135deg, #081a0a 0%, #153620 100%); }
+        .vt4 { background: linear-gradient(135deg, #1a1508 0%, #3d3215 100%); }
+        .vt5 { background: linear-gradient(135deg, #12081a 0%, #291540 100%); }
+        .vt6 { background: linear-gradient(135deg, #08181a 0%, #153d40 100%); }
+
+        .play-btn {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            background: rgba(229, 57, 53, 0.92);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            transition: all 0.3s;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .play-btn ion-icon {
+            font-size: 28px;
+            color: #fff;
+            margin-left: 4px;
+        }
+
+        .video-card:hover .play-btn {
+            background: var(--primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 0 8px rgba(229, 57, 53, 0.2);
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 12px;
+            right: 14px;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+            z-index: 3;
+        }
+
+        .video-cat-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            z-index: 3;
+        }
+
+        .video-body { padding: 22px; }
+
+        .video-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .video-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .video-meta span { display: flex; align-items: center; gap: 5px; }
+        .video-meta ion-icon { font-size: 14px; }
+
+        .btn-watch {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(229, 57, 53, 0.08);
+            border: 1px solid rgba(229, 57, 53, 0.2);
+            border-radius: 16px;
+            padding: 8px 18px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all 0.2s;
+        }
+
+        .btn-watch:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* YouTube Banner */
+        .yt-banner {
+            background: linear-gradient(135deg, rgba(229, 57, 53, 0.08) 0%, rgba(0, 0, 0, 0.15) 100%);
+            border: 1px solid rgba(229, 57, 53, 0.2);
+            border-radius: 24px;
+            padding: 40px 48px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin-bottom: 56px;
+            flex-wrap: wrap;
+        }
+
+        .yt-icon-wrap {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .yt-icon-wrap ion-icon { font-size: 38px; color: #fff; }
+        .yt-banner h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+        .yt-banner p { color: var(--text-muted); font-size: 14px; margin: 0; max-width: 460px; }
+
+        .btn-yt {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 26px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 18px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-yt:hover { background: #b71c1c; color: #fff; transform: scale(1.02); }
+
+        .vid-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .vid-filter {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-body);
+        }
+
+        .vid-filter.active, .vid-filter:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* ===== VIDEO MODAL ===== */
+        .vid-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .vid-modal-backdrop.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .vid-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            max-width: 720px;
+            width: 94vw;
+            overflow: hidden;
+            transform: scale(0.88);
+            transition: transform 0.3s;
+        }
+
+        .vid-modal-backdrop.open .vid-modal {
+            transform: scale(1);
+        }
+
+        /* Player area — holds either the poster or the iframe */
+        .vid-modal-player {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
+        }
+
+        /* Poster (thumbnail + play button, shown before play) */
+        .vid-poster {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .vid-poster img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .vid-poster .poster-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+        }
+
+        /* Fallback gradient poster bg */
+        .vid-poster.gradient-bg {
+            background: linear-gradient(135deg, #1a0808 0%, #3d1515 100%);
+        }
+
+        .vid-modal-play-btn {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            background: rgba(229, 57, 53, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(255,255,255,0.35);
+            transition: all 0.3s;
+            z-index: 3;
+        }
+
+        .vid-modal-play-btn ion-icon {
+            font-size: 34px;
+            color: #fff;
+            margin-left: 5px;
+        }
+
+        .vid-poster:hover .vid-modal-play-btn {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 14px rgba(229, 57, 53, 0.2);
+            background: #e53935;
+        }
+
+        /* YouTube iframe */
+        .vid-iframe-wrap {
+            position: absolute;
+            inset: 0;
+            display: none;
+            z-index: 1;
+        }
+
+        .vid-iframe-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .vid-iframe-wrap.playing {
+            display: block;
+        }
+
+        /* Modal header & body */
+        .vid-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px 0;
+        }
+
+        .vid-modal-header h3 {
+            font-size: 17px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .modal-close-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 20px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .modal-close-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .vid-modal-body { padding: 20px 28px 28px; }
+
+        .vid-modal-body p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .vid-meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .vid-tag {
+            background: rgba(229, 57, 53, 0.08);
+            border: 1px solid rgba(229, 57, 53, 0.15);
+            border-radius: 12px;
+            padding: 4px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .vid-modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn-yt-watch {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 11px 24px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-yt-watch:hover { background: #b71c1c; color: #fff; }
+
+        .btn-share {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 11px 24px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-share:hover { border-color: var(--primary); color: var(--primary); }
+    </style>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader-content">
+            <div class="logo-box" style="justify-content:center;margin-bottom:20px"><img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+            </div>
+            <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+        </div>
+    </div>
+    <div class="scroll-progress"></div>
+    <div class="scene-3d">
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+    </div>
+    <div class="grid-pattern"></div>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo-box">
+                <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <div class="sidebar-logo">
+                    <div class="logo-box">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+                    </div>
+                </div>
+                <a href="index.html">Home</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Courses</a>
+                    <div class="dropdown-menu">
+                        <a href="courses.html">All Courses</a>
+                        <span class="dropdown-header">[ Short Learning ]</span>
+                        <a href="crash-courses.html">Crash Courses</a>
+                        <a href="workshops.html">Workshops</a>
+                        <a href="sessions-seminars.html">Sessions & Seminars</a>
+                        <div class="sub-menu">
+                            <a href="career-guidance.html">Career Guidance Sessions</a>
+                            <a href="resume-building.html">Resume Building Sessions</a>
+                            <a href="interview-preparation.html">Interview Preparation</a>
+                        </div>
+                        <span class="dropdown-header">[ Programs ]</span>
+                        <a href="certification-programs.html">Certification Programs</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Students</a>
+                    <div class="dropdown-menu">
+                        <a href="placements.html">Placed Students</a>
+                        <a href="certifications.html">Certified Students</a>
+                        <a href="testimonials.html">Student Testimonials</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle active">Resources</a>
+                    <div class="dropdown-menu">
+                        <a href="blogs.html">Blogs</a>
+                        <a href="events.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="jobs.html">Jobs</a>
+                        <a href="videos.html" class="active">Videos</a>
+                        <a href="top-institutes.html">Top Institutes in Nashik</a>
+                    </div>
+                </div>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Counseling</a>
+            </div>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="section-label reveal-smooth">Learn for Free</div>
+            <h1 class="reveal-scale">Video <span class="shimmer-text">Library</span></h1>
+            <p class="reveal-smooth">Watch free IT tutorials, student success stories, and workshop recordings curated by TechnoKraft experts.</p>
+        </div>
+    </section>
+
+    <section class="services-section" style="padding-top:60px">
+        <div class="container">
+
+            <!-- YouTube Banner -->
+            <div class="yt-banner reveal-smooth">
+                <div class="yt-icon-wrap"><ion-icon name="logo-youtube"></ion-icon></div>
+                <div>
+                    <h3>Subscribe to Our YouTube Channel</h3>
+                    <p>Get free Java, Python, DevOps, and career tip videos every week. Join 10,000+ learners on YouTube and grow your IT career faster.</p>
+                    <a href="https://www.youtube.com/@technokraft-tts455" target="_blank" class="btn-yt"><ion-icon name="logo-youtube"></ion-icon> Subscribe on YouTube</a>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="vid-filters reveal-smooth">
+                <button class="vid-filter active" data-vcat="all">All Videos</button>
+                <button class="vid-filter" data-vcat="java">Java</button>
+                <button class="vid-filter" data-vcat="data">Data Science</button>
+                <button class="vid-filter" data-vcat="devops">DevOps</button>
+                <button class="vid-filter" data-vcat="career">Career Tips</button>
+                <button class="vid-filter" data-vcat="ai">AI & GenAI</button>
+                <button class="vid-filter" data-vcat="story">Student Stories</button>
+            </div>
+
+            <!-- Video Grid -->
+            <!-- Each card has:
+                 data-ytid  = YouTube video ID (used for thumbnail + embed)
+                 data-yt    = full YouTube URL (used for "Watch on YouTube" button)
+            -->
+            <div class="video-grid" id="videoGrid">
+
+                <!-- Featured -->
+                <div class="video-card reveal-smooth" data-vcat="java"
+                    data-title="Why TechnoKraft is the Best IT Institute in Nashik"
+                    data-desc="Watch why thousands of students choose TechnoKraft for their IT career transformation."
+                    data-tags="TechnoKraft,Success,Placement,Nashik,Java"
+                    data-duration="5:24"
+                    data-views="12K"
+                    data-cat-label="Featured"
+                    data-ytid="b3RAi5bWfBU"
+                    data-yt="https://youtu.be/b3RAi5bWfBU">
+                    <div class="video-thumb vt1">
+                        <img class="yt-thumb-img" src="https://img.youtube.com/vi/b3RAi5bWfBU/hqdefault.jpg" alt="Why TechnoKraft is the Best IT Institute in Nashik">
+                        <div class="thumb-overlay"></div>
+                        <div class="play-btn"><ion-icon name="play"></ion-icon></div>
+                        <div class="video-duration">5:24</div>
+                        <div class="video-cat-tag">Featured</div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Why TechnoKraft is the Best IT Institute in Nashik</div>
+                        <div class="video-meta">
+                            <span><ion-icon name="eye-outline"></ion-icon> 12K views</span>
+                        </div>
+                        <button class="btn-watch">Watch Now</button>
+                    </div>
+                </div>
+
+                <!-- Java -->
+                <div class="video-card reveal-smooth" data-vcat="java"
+                    data-title="Java Full Stack Course"
+                    data-desc="Complete Java Full Stack course covering core Java, Spring Boot, REST APIs, and more."
+                    data-tags="Java,Spring Boot,REST API"
+                    data-duration="1:24:00"
+                    data-views="45K"
+                    data-cat-label="Java"
+                    data-ytid="BGTx91t8q50"
+                    data-yt="https://www.youtube.com/watch?v=BGTx91t8q50">
+                    <div class="video-thumb vt1">
+                        <img class="yt-thumb-img" src="https://img.youtube.com/vi/BGTx91t8q50/hqdefault.jpg" alt="Java Full Stack Course">
+                        <div class="thumb-overlay"></div>
+                        <div class="play-btn"><ion-icon name="play"></ion-icon></div>
+                        <div class="video-duration">1:24:00</div>
+                        <div class="video-cat-tag">Java</div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Java Full Stack Course</div>
+                        <div class="video-meta">
+                            <span><ion-icon name="eye-outline"></ion-icon> 45K views</span>
+                        </div>
+                        <button class="btn-watch">Watch Now</button>
+                    </div>
+                </div>
+
+                <!-- Data Science -->
+                <div class="video-card reveal-smooth" data-vcat="data"
+                    data-title="Data Science Roadmap"
+                    data-desc="Data Science for beginners — Python, ML, and data analysis roadmap explained step by step."
+                    data-tags="Python,Data Science,ML"
+                    data-duration="45:00"
+                    data-views="32K"
+                    data-cat-label="Data Science"
+                    data-ytid="ua-CiDNNj30"
+                    data-yt="https://www.youtube.com/watch?v=ua-CiDNNj30">
+                    <div class="video-thumb vt2">
+                        <img class="yt-thumb-img" src="https://img.youtube.com/vi/ua-CiDNNj30/hqdefault.jpg" alt="Data Science Roadmap">
+                        <div class="thumb-overlay"></div>
+                        <div class="play-btn"><ion-icon name="play"></ion-icon></div>
+                        <div class="video-duration">45:00</div>
+                        <div class="video-cat-tag">Data Science</div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Data Science Roadmap</div>
+                        <div class="video-meta">
+                            <span><ion-icon name="eye-outline"></ion-icon> 32K views</span>
+                        </div>
+                        <button class="btn-watch">Watch Now</button>
+                    </div>
+                </div>
+
+                <!-- DevOps -->
+                <div class="video-card reveal-smooth" data-vcat="devops"
+                    data-title="Docker & Kubernetes"
+                    data-desc="DevOps beginner tutorial covering Docker containers, Kubernetes orchestration, and CI/CD pipelines."
+                    data-tags="Docker,Kubernetes,DevOps"
+                    data-duration="55:30"
+                    data-views="28K"
+                    data-cat-label="DevOps"
+                    data-ytid="9SGDpanrc8U"
+                    data-yt="https://www.youtube.com/watch?v=9SGDpanrc8U">
+                    <div class="video-thumb vt3">
+                        <img class="yt-thumb-img" src="https://img.youtube.com/vi/9SGDpanrc8U/hqdefault.jpg" alt="Docker & Kubernetes">
+                        <div class="thumb-overlay"></div>
+                        <div class="play-btn"><ion-icon name="play"></ion-icon></div>
+                        <div class="video-duration">55:30</div>
+                        <div class="video-cat-tag">DevOps</div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Docker & Kubernetes</div>
+                        <div class="video-meta">
+                            <span><ion-icon name="eye-outline"></ion-icon> 28K views</span>
+                        </div>
+                        <button class="btn-watch">Watch Now</button>
+                    </div>
+                </div>
+
+                <!-- Student Story -->
+                <div class="video-card reveal-smooth" data-vcat="story"
+                    data-title="Student Success Story"
+                    data-desc="Inspiring career journey of a TechnoKraft student from zero to job placement at a top IT company."
+                    data-tags="Career,Student,Placement"
+                    data-duration="12:00"
+                    data-views="18K"
+                    data-cat-label="Student Story"
+                    data-ytid="6DZBPEdjWlA"
+                    data-yt="https://www.youtube.com/watch?v=6DZBPEdjWlA">
+                    <div class="video-thumb vt4">
+                        <img class="yt-thumb-img" src="https://img.youtube.com/vi/6DZBPEdjWlA/hqdefault.jpg" alt="Student Success Story">
+                        <div class="thumb-overlay"></div>
+                        <div class="play-btn"><ion-icon name="play"></ion-icon></div>
+                        <div class="video-duration">12:00</div>
+                        <div class="video-cat-tag">Student Story</div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Student Success Story</div>
+                        <div class="video-meta">
+                            <span><ion-icon name="eye-outline"></ion-icon> 18K views</span>
+                        </div>
+                        <button class="btn-watch">Watch Now</button>
+                    </div>
+                </div>
+
+                <!-- AI -->
+                <div class="video-card reveal-smooth" data-vcat="ai"
+                    data-title="Generative AI"
+                    data-desc="AI for developers — understanding Generative AI, ChatGPT, and how to use AI tools in your development workflow."
+                    data-tags="AI,ChatGPT,GenAI"
+                    data-duration="38:00"
+                    data-views="52K"
+                    data-cat-label="AI"
+                    data-ytid="mEsleV16qdo"
+                    data-yt="https://www.youtube.com/watch?v=mEsleV16qdo">
+                    <div class="video-thumb vt5">
+                        <img class="yt-thumb-img" src="https://img.youtube.com/vi/mEsleV16qdo/hqdefault.jpg" alt="Generative AI">
+                        <div class="thumb-overlay"></div>
+                        <div class="play-btn"><ion-icon name="play"></ion-icon></div>
+                        <div class="video-duration">38:00</div>
+                        <div class="video-cat-tag">AI</div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Generative AI</div>
+                        <div class="video-meta">
+                            <span><ion-icon name="eye-outline"></ion-icon> 52K views</span>
+                        </div>
+                        <button class="btn-watch">Watch Now</button>
+                    </div>
+                </div>
+
+                <!-- Career -->
+                <div class="video-card reveal-smooth" data-vcat="career"
+                    data-title="Placement Prep"
+                    data-desc="Complete campus placement preparation guide — aptitude, coding rounds, HR interviews, and how to crack top IT companies."
+                    data-tags="Placement,TCS,Interview,Career"
+                    data-duration="20:00"
+                    data-views="67K"
+                    data-cat-label="Career"
+                    data-ytid="1mHjMNZZvFo"
+                    data-yt="https://www.youtube.com/watch?v=1mHjMNZZvFo">
+                    <div class="video-thumb vt6">
+                        <img class="yt-thumb-img" src="https://img.youtube.com/vi/1mHjMNZZvFo/hqdefault.jpg" alt="Placement Prep">
+                        <div class="thumb-overlay"></div>
+                        <div class="play-btn"><ion-icon name="play"></ion-icon></div>
+                        <div class="video-duration">20:00</div>
+                        <div class="video-cat-tag">Career</div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Placement Prep</div>
+                        <div class="video-meta">
+                            <span><ion-icon name="eye-outline"></ion-icon> 67K views</span>
+                        </div>
+                        <button class="btn-watch">Watch Now</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Watch Modal -->
+    <div class="vid-modal-backdrop" id="vidModal">
+        <div class="vid-modal">
+
+            <!-- Player area -->
+            <div class="vid-modal-player" id="vidModalPlayer">
+                <!-- Poster (thumbnail + big play) shown before video starts -->
+                <div class="vid-poster" id="vidPoster">
+                    <img id="vidPosterImg" src="" alt="">
+                    <div class="poster-overlay"></div>
+                    <div class="vid-modal-play-btn" id="vidModalPlayBtn">
+                        <ion-icon name="play"></ion-icon>
+                    </div>
+                </div>
+                <!-- iframe injected here when play is clicked -->
+                <div class="vid-iframe-wrap" id="vidIframeWrap"></div>
+            </div>
+
+            <div class="vid-modal-header">
+                <h3 id="vidModalTitle">Video Title</h3>
+                <button class="modal-close-btn" id="closeVidModal"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="vid-modal-body">
+                <p id="vidModalDesc">Description</p>
+                <div class="vid-meta-tags" id="vidModalTags"></div>
+                <div class="vid-modal-actions">
+                    <a href="#" id="vidModalYtLink" target="_blank" class="btn-yt-watch">
+                        <ion-icon name="logo-youtube"></ion-icon> Watch on YouTube
+                    </a>
+                    <button class="btn-share" id="vidShareBtn"><ion-icon name="share-social-outline"></ion-icon> Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <h2>Ready to Go <span class="gradient-text">Beyond Videos?</span></h2>
+                <p>Enroll in a live, instructor-led course and get personal mentorship, mock interviews, and 100% placement support.</p>
+                <a href="courses.html" class="btn-primary">Explore Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-box" style="margin-bottom: 20px;">
+                        <img src="images/tts_logo.png" alt="TechnoKraft Logo">
+                        <div class="brand-text"><span class="brand-main">TechnoKraft</span></div>
+                    </a>
+                    <p>TechnoKraft is dedicated to building high-impact tech careers with integrity, transparency, and a 100% placement guarantee.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/tts.net.in/" target="_blank" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+                        <a href="https://www.instagram.com/TechnoKraft_tts" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="https://www.linkedin.com/company/ttsnashik/" target="_blank" aria-label="LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://www.youtube.com/@technokraft-tts455" target="_blank" aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Our Courses</h4>
+                    <a href="courses.html#full-stack">Java Full Stack</a>
+                    <a href="courses.html#data-science">Data Science & AI</a>
+                    <a href="courses.html#devops">DevOps / Cloud</a>
+                    <a href="courses.html#web-dev">Web Development</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 10px;">
+                        <ion-icon name="location-outline"></ion-icon> 1st Floor, Kanchwala Avenue, Above Viju's Dabeli, Thatte Nagar Marg, College Road, Nashik, Maharashtra 422005, India
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="call-outline"></ion-icon> +91-8645628278
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 5px;">
+                        <ion-icon name="mail-outline"></ion-icon> info@tts.net.in
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 14px;">
+                        <ion-icon name="time-outline"></ion-icon> 09:30 am - 08:30 pm
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="index.html" style="color: inherit; text-decoration: none;">TechnoKraft</a> All rights reserved. | Krafting Your Skills</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // ===== VIDEO FILTER =====
+        const vidFilters = document.querySelectorAll('.vid-filter');
+        const vidCards = document.querySelectorAll('#videoGrid .video-card');
+
+        vidFilters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                vidFilters.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.dataset.vcat;
+                let visible = 0;
+                vidCards.forEach(card => {
+                    const match = cat === 'all' || card.dataset.vcat === cat;
+                    card.style.display = match ? '' : 'none';
+                    if (match) {
+                        card.classList.remove('visible');
+                        void card.offsetHeight;
+                        setTimeout(() => card.classList.add('visible'), 40 + visible * 60);
+                        visible++;
+                    }
+                });
+            });
+        });
+
+        // ===== VIDEO MODAL =====
+        const vidModal = document.getElementById('vidModal');
+        const closeVidModalBtn = document.getElementById('closeVidModal');
+        let currentYtId = '';
+
+        function openVideoModal(card) {
+            const title    = card.dataset.title;
+            const desc     = card.dataset.desc;
+            const tags     = card.dataset.tags.split(',');
+            const yt       = card.dataset.yt;
+            const ytid     = card.dataset.ytid;
+
+            currentYtId = ytid;
+
+            document.getElementById('vidModalTitle').textContent = title;
+            document.getElementById('vidModalDesc').textContent  = desc;
+            document.getElementById('vidModalYtLink').href       = yt;
+            document.getElementById('vidModalTags').innerHTML    = tags.map(t => `<span class="vid-tag">${t.trim()}</span>`).join('');
+
+            // Set poster thumbnail
+            const posterImg = document.getElementById('vidPosterImg');
+            posterImg.src = `https://img.youtube.com/vi/${ytid}/hqdefault.jpg`;
+            posterImg.alt = title;
+
+            // Reset player: show poster, hide iframe
+            document.getElementById('vidPoster').style.display = 'flex';
+            const iframeWrap = document.getElementById('vidIframeWrap');
+            iframeWrap.classList.remove('playing');
+            iframeWrap.innerHTML = '';
+
+            vidModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Play button inside modal → load YouTube iframe
+        document.getElementById('vidModalPlayBtn').addEventListener('click', () => {
+            if (!currentYtId) return;
+            const iframeWrap = document.getElementById('vidIframeWrap');
+            iframeWrap.innerHTML = `<iframe
+                src="https://www.youtube.com/embed/${currentYtId}?autoplay=1&rel=0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>`;
+            iframeWrap.classList.add('playing');
+            document.getElementById('vidPoster').style.display = 'none';
+        });
+
+        // Share button
+        document.getElementById('vidShareBtn').addEventListener('click', () => {
+            const url = document.getElementById('vidModalYtLink').href;
+            if (navigator.share) {
+                navigator.share({ title: document.getElementById('vidModalTitle').textContent, url });
+            } else {
+                navigator.clipboard.writeText(url).then(() => alert('Link copied!'));
+            }
+        });
+
+        // Open modal on card / Watch Now click
+        document.querySelectorAll('.video-card, .btn-watch').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = el.classList.contains('video-card') ? el : el.closest('.video-card');
+                openVideoModal(card);
+            });
+        });
+
+        function closeModal() {
+            vidModal.classList.remove('open');
+            document.body.style.overflow = '';
+            // Stop video by clearing iframe
+            const iframeWrap = document.getElementById('vidIframeWrap');
+            iframeWrap.innerHTML = '';
+            iframeWrap.classList.remove('playing');
+            document.getElementById('vidPoster').style.display = 'flex';
+        }
+
+        closeVidModalBtn.addEventListener('click', closeModal);
+        vidModal.addEventListener('click', e => { if (e.target === vidModal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    </script>
+</body>
+</html>
