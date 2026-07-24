@@ -198,21 +198,42 @@ export default function Home() {
       </div>
     </section>
 
-    {/* AI Course Suggestion Section — Inline Results */}
-    <section className="reveal-smooth ai-suggestion-section" id="ai-suggestion">
+    {/* AI Course Suggestion Section — Inline */}
+    <section className="reveal-smooth ai-suggestion-section" id="ai-suggestion" aria-label="AI Course Recommendation">
       <div className="container">
         <div className="suggestion-card-wrapper reveal-scale">
+
+          {/* Section Header */}
           <div className="section-header">
-            <div className="section-label reveal-smooth">
-              AI-powered suggestions based on your goals
-            </div>
+            <div className="section-label reveal-smooth">AI-Powered Career Guidance</div>
             <h2 className="section-title">Not Sure What to Learn?</h2>
-            <p className="section-subtitle">
-              Tell us your goal and our AI Career Counselor will suggest the best courses for you.
-            </p>
+            <p className="section-subtitle">Tell us your career goal — our AI recommends the best course from 115+ official TechnoKraft programs.</p>
           </div>
 
-          {/* Input Form */}
+          {/* How-to Steps — visible only before results */}
+          {!aiResult && !aiLoading && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '10px', marginBottom: '24px' }}>
+              {[
+                { icon: 'create-outline', step: '1', label: 'Type Your Goal', desc: 'Write what career you want, e.g. "I want to be a web developer"' },
+                { icon: 'sparkles-outline', step: '2', label: 'AI Analyzes', desc: 'AI matches your goal against our full course catalog instantly' },
+                { icon: 'school-outline', step: '3', label: 'See Best Courses', desc: 'Get top 3 matched courses with score, skills, fees &amp; roadmap' },
+                { icon: 'call-outline', step: '4', label: 'Book Free Call', desc: 'Share your contact to get a personal mentor session' },
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', background: 'var(--bg-secondary)', borderRadius: '14px', border: '1px solid var(--border-light)' }}>
+                  <div style={{ minWidth: '34px', height: '34px', borderRadius: '10px', background: 'rgba(229,57,53,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <ion-icon name={item.icon} style={{ fontSize: '17px', color: 'var(--primary)' }}></ion-icon>
+                  </div>
+                  <div>
+                    <p style={{ margin: '0 0 1px', fontSize: '10px', fontWeight: 800, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Step {item.step}</p>
+                    <p style={{ margin: '0 0 2px', fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>{item.label}</p>
+                    <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.5' }} dangerouslySetInnerHTML={{ __html: item.desc }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Input + Button */}
           <div className="suggestion-form">
             <div className="input-container">
               <textarea
@@ -221,143 +242,248 @@ export default function Home() {
                 value={goalInput}
                 onChange={(e) => { setGoalInput(e.target.value); setAiError(''); }}
                 onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleGetSuggestions(); } }}
-                placeholder="Example: I want to become a Data Scientist, or I want to get a software job in 6 months"
+                placeholder="e.g. I want to become a Data Scientist • I want a software job in 6 months • I like coding but don't know where to start"
+                aria-label="Enter your career goal"
+                rows={3}
               ></textarea>
             </div>
-            {aiError && <p style={{ color: 'var(--primary)', fontSize: '13px', margin: '4px 0 8px', fontWeight: 600 }}>{aiError}</p>}
-            <button
-              id="get-suggestions-btn"
-              className="btn-primary"
-              onClick={handleGetSuggestions}
-              disabled={aiLoading}
-              style={{ opacity: aiLoading ? 0.75 : 1 }}
-            >
-              <span>{aiLoading ? 'Analyzing...' : 'Get AI Suggestions'}</span>
-              <ion-icon name="sparkles-outline"></ion-icon>
-            </button>
+            {aiError && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--primary)', fontSize: '13px', margin: '6px 0 2px', fontWeight: 600 }}>
+                <ion-icon name="alert-circle-outline" style={{ fontSize: '15px' }}></ion-icon> {aiError}
+              </div>
+            )}
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <button
+                id="get-suggestions-btn"
+                className="btn-primary"
+                onClick={handleGetSuggestions}
+                disabled={aiLoading}
+                aria-label="Get AI course suggestions"
+                style={{ flex: 1, minWidth: '180px', opacity: aiLoading ? 0.75 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+              >
+                <ion-icon name={aiLoading ? 'hourglass-outline' : 'sparkles-outline'}></ion-icon>
+                <span>{aiLoading ? 'Analyzing...' : 'Get AI Suggestions'}</span>
+              </button>
+              {aiResult && (
+                <button
+                  onClick={() => { setAiResult(null); setGoalInput(''); setShowLeadForm(false); setRoadmapResult(null); setAiError(''); }}
+                  style={{ padding: '0 18px', borderRadius: '14px', border: '1px solid var(--border-light)', background: 'transparent', color: 'var(--text-secondary)', fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px', fontWeight: 600 }}
+                  aria-label="Start a new search"
+                >
+                  <ion-icon name="refresh-outline"></ion-icon> New Search
+                </button>
+              )}
+            </div>
           </div>
 
-          {/* Loading Steps */}
+          {/* Loading Indicator */}
           {aiLoading && (
-            <div style={{ marginTop: '28px', textAlign: 'center', padding: '32px 20px', background: 'var(--bg-secondary)', borderRadius: '20px', border: '1px solid var(--border-light)' }}>
-              <div style={{ display: 'inline-flex', width: '48px', height: '48px', borderRadius: '50%', border: '3px solid var(--primary)', borderTopColor: 'transparent', animation: 'spin 0.8s linear infinite', marginBottom: '16px' }}></div>
-              <p style={{ fontWeight: 700, fontSize: '16px', color: 'var(--primary)', margin: '0 0 6px' }}>{AI_STEPS[aiLoadingStep]}</p>
-              <p style={{ fontSize: '13px', color: 'var(--text-muted)', margin: 0 }}>Verifying TechnoKraft official course catalog...</p>
+            <div style={{ marginTop: '20px', padding: '28px 16px', background: 'var(--bg-secondary)', borderRadius: '18px', border: '1px solid var(--border-light)', textAlign: 'center' }}>
+              <div style={{ display: 'inline-block', width: '42px', height: '42px', borderRadius: '50%', border: '3px solid rgba(229,57,53,0.15)', borderTopColor: 'var(--primary)', animation: 'spin 0.8s linear infinite', marginBottom: '14px' }}></div>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                {[
+                  { icon: 'bulb-outline', label: 'Understanding goal' },
+                  { icon: 'search-outline', label: 'Scanning catalog' },
+                  { icon: 'trending-up-outline', label: 'Ranking matches' },
+                ].map((s, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 600, color: aiLoadingStep >= i ? 'var(--primary)' : 'var(--text-muted)', transition: 'color 0.3s' }}>
+                    <ion-icon name={s.icon} style={{ fontSize: '14px' }}></ion-icon> {s.label}
+                  </div>
+                ))}
+              </div>
+              <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>Checking 115+ official TechnoKraft programs...</p>
             </div>
           )}
 
-          {/* Inline Results */}
+          {/* Results */}
           {aiResult && !aiLoading && (
-            <div style={{ marginTop: '32px' }}>
+            <div style={{ marginTop: '24px' }}>
 
-              {/* Summary */}
-              <div style={{ background: 'rgba(229,57,53,0.06)', border: '1px solid rgba(229,57,53,0.2)', borderRadius: '16px', padding: '16px 20px', marginBottom: '20px' }}>
-                <p style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', lineHeight: '1.6', whiteSpace: 'pre-line' }}>{aiResult.summary}</p>
+              {/* AI Summary */}
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', background: 'rgba(229,57,53,0.05)', border: '1px solid rgba(229,57,53,0.18)', borderRadius: '14px', padding: '14px 16px', marginBottom: '18px' }}>
+                <div style={{ minWidth: '30px', height: '30px', borderRadius: '8px', background: 'rgba(229,57,53,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <ion-icon name="hardware-chip-outline" style={{ fontSize: '16px', color: 'var(--primary)' }}></ion-icon>
+                </div>
+                <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)', lineHeight: '1.6', whiteSpace: 'pre-line' }}>{aiResult.summary}</p>
               </div>
 
-              {/* Counselor Question (vague input) */}
+              {/* Counselor Clarification */}
               {aiResult.nextQuestion && (
-                <div style={{ background: 'rgba(255,193,7,0.08)', border: '1px solid rgba(255,193,7,0.3)', borderRadius: '16px', padding: '18px 22px', marginBottom: '20px' }}>
-                  <p style={{ margin: '0 0 6px', fontWeight: 800, fontSize: '14px' }}>💡 Counselor asks:</p>
-                  <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-secondary)', whiteSpace: 'pre-line', lineHeight: '1.8' }}>{aiResult.nextQuestion}</p>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.25)', borderRadius: '14px', padding: '14px 16px', marginBottom: '18px' }}>
+                  <div style={{ minWidth: '30px', height: '30px', borderRadius: '8px', background: 'rgba(245,158,11,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <ion-icon name="help-circle-outline" style={{ fontSize: '16px', color: '#f59e0b' }}></ion-icon>
+                  </div>
+                  <div>
+                    <p style={{ margin: '0 0 4px', fontWeight: 800, fontSize: '11px', color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Counselor Asks</p>
+                    <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', whiteSpace: 'pre-line', lineHeight: '1.7' }}>{aiResult.nextQuestion}</p>
+                  </div>
                 </div>
               )}
 
-              {/* Recommendation Cards */}
+              {/* ── CARDS: 2-column on lg, 1-column on mobile ── */}
               {aiResult.recommendations.length > 0 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '28px' }}>
-                  {aiResult.recommendations.map((rec) => (
-                    <div key={rec.courseId} style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '20px', padding: '24px' }}>
-                      {/* Card Header */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '12px' }}>
-                        <div>
-                          <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--primary)', background: 'rgba(229,57,53,0.1)', padding: '3px 10px', borderRadius: '10px' }}>
-                            #{rec.courseId} &bull; {rec.confidence} Confidence
-                          </span>
-                          <h4 style={{ margin: '8px 0 0', fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)' }}>{rec.courseName}</h4>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(min(100%,380px),1fr))', gap: '16px', marginBottom: '20px' }}>
+                  {aiResult.recommendations.map((rec, idx) => (
+                    <div key={rec.courseId} style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '18px', padding: '18px', display: 'flex', flexDirection: 'column' }}>
+
+                      {/* Badge row */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '6px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                          <ion-icon name="ribbon-outline" style={{ fontSize: '13px', color: 'var(--primary)' }}></ion-icon>
+                          <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Match #{idx + 1}</span>
                         </div>
-                        <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--primary)', background: 'rgba(229,57,53,0.08)', padding: '6px 14px', borderRadius: '14px', border: '1px solid rgba(229,57,53,0.2)' }}>{rec.matchScore}% Match</div>
-                          <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-muted)', display: 'block', marginTop: '4px' }}>Fees: {rec.fees}</span>
+                        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                          <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--primary)', background: 'rgba(229,57,53,0.08)', padding: '3px 10px', borderRadius: '20px', border: '1px solid rgba(229,57,53,0.18)' }}>{rec.matchScore}%</span>
+                          <span style={{ fontSize: '10px', fontWeight: 700, padding: '3px 8px', borderRadius: '8px', background: rec.confidence === 'High' ? 'rgba(34,197,94,0.1)' : 'rgba(245,158,11,0.1)', color: rec.confidence === 'High' ? '#22c55e' : '#f59e0b' }}>{rec.confidence}</span>
                         </div>
                       </div>
-                      {/* Reason */}
-                      <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '14px' }}><strong>Why Recommended:</strong> {rec.reason}</p>
+
+                      {/* Name + Fees */}
+                      <h4 style={{ margin: '0 0 4px', fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)', lineHeight: '1.3' }}>{rec.courseName}</h4>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '10px' }}>
+                        <ion-icon name="pricetag-outline" style={{ fontSize: '12px', color: 'var(--text-muted)' }}></ion-icon>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)' }}>Course Fees: {rec.fees}</span>
+                      </div>
+
+                      {/* Why Recommended */}
+                      <div style={{ display: 'flex', gap: '8px', background: 'var(--bg-card)', borderRadius: '10px', padding: '10px 12px', marginBottom: '10px', border: '1px solid var(--border-light)' }}>
+                        <ion-icon name="information-circle-outline" style={{ fontSize: '14px', color: 'var(--primary)', marginTop: '1px', flexShrink: 0 }}></ion-icon>
+                        <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>{rec.reason}</p>
+                      </div>
+
                       {/* Skills */}
-                      <div style={{ marginBottom: '14px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '8px' }}>Key Skills:</span>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      <div style={{ marginBottom: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '5px' }}>
+                          <ion-icon name="code-slash-outline" style={{ fontSize: '12px', color: 'var(--text-muted)' }}></ion-icon>
+                          <span style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Skills You Will Learn</span>
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                           {rec.skills.map((sk, i) => (
-                            <span key={i} style={{ fontSize: '12px', fontWeight: 600, padding: '3px 10px', borderRadius: '8px', background: 'var(--bg-card)', border: '1px solid var(--border-light)', color: 'var(--text-primary)' }}>✓ {sk}</span>
+                            <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '6px', background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)', color: 'var(--text-primary)' }}>
+                              <ion-icon name="checkmark-outline" style={{ fontSize: '10px', color: '#22c55e' }}></ion-icon>{sk}
+                            </span>
                           ))}
                         </div>
                       </div>
-                      {/* Roles */}
-                      <div style={{ marginBottom: '14px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '4px' }}>Career Roles:</span>
-                        <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>{rec.careerRoles.join(' • ')}</p>
+
+                      {/* Career Roles */}
+                      <div style={{ marginBottom: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '5px' }}>
+                          <ion-icon name="briefcase-outline" style={{ fontSize: '12px', color: 'var(--text-muted)' }}></ion-icon>
+                          <span style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Job Roles After This Course</span>
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                          {rec.careerRoles.map((role, i) => (
+                            <span key={i} style={{ fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '6px', background: 'rgba(229,57,53,0.07)', color: 'var(--primary)', border: '1px solid rgba(229,57,53,0.12)' }}>{role}</span>
+                          ))}
+                        </div>
                       </div>
+
                       {/* Learning Path */}
-                      <div style={{ background: 'var(--bg-card)', padding: '14px 18px', borderRadius: '12px', border: '1px solid var(--border-light)', marginBottom: '14px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '8px' }}>Learning Path:</span>
-                        <ol style={{ margin: 0, paddingLeft: '18px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
-                          {rec.learningPath.map((step, i) => <li key={i}>{step}</li>)}
-                        </ol>
+                      <div style={{ background: 'var(--bg-card)', borderRadius: '10px', padding: '12px 14px', border: '1px solid var(--border-light)', marginBottom: '14px', flexGrow: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '8px' }}>
+                          <ion-icon name="map-outline" style={{ fontSize: '12px', color: 'var(--text-muted)' }}></ion-icon>
+                          <span style={{ fontSize: '10px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Learning Roadmap</span>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                          {rec.learningPath.map((step, i) => (
+                            <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                              <span style={{ minWidth: '18px', height: '18px', borderRadius: '50%', background: 'var(--primary)', color: '#fff', fontSize: '9px', fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '2px' }}>{i + 1}</span>
+                              <span style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>{step}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
+
+                      {/* CTA — opens contact form first */}
                       <button
-                        className="btn-secondary"
-                        onClick={() => { setSelectedCourse(rec.courseName); setShowLeadForm(true); }}
-                        style={{ width: '100%', borderRadius: '12px', fontSize: '13px', fontWeight: 700, padding: '10px' }}
+                        className="btn-primary"
+                        onClick={() => {
+                          setSelectedCourse(rec.courseName);
+                          setShowLeadForm(true);
+                          setRoadmapResult(null);
+                          setTimeout(() => document.getElementById('ai-lead-form')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+                        }}
+                        style={{ width: '100%', borderRadius: '12px', fontSize: '13px', fontWeight: 700, padding: '11px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px' }}
+                        aria-label={`Get free roadmap for ${rec.courseName}`}
                       >
-                        Get Free 5-Month Personalized Roadmap &amp; Consultation
+                        <ion-icon name="call-outline"></ion-icon> Get Free Roadmap &amp; Consultation
                       </button>
                     </div>
                   ))}
                 </div>
               )}
 
-              {/* Lead Form */}
-              {showLeadForm && (
-                <div style={{ background: 'linear-gradient(135deg,rgba(229,57,53,0.07),rgba(200,164,94,0.07))', border: '1px solid var(--primary)', borderRadius: '20px', padding: '24px', marginBottom: '24px' }}>
-                  <h4 style={{ margin: '0 0 6px', fontSize: '17px', fontWeight: 800 }}>Get Personalized Guidance for <em>{selectedCourse}</em></h4>
-                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>Enter your details to receive a custom 5-month learning roadmap from a TechnoKraft mentor.</p>
-                  <form onSubmit={handleLeadSubmit} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(170px,1fr))', gap: '10px' }}>
-                    <input type="text" required placeholder="Full Name *" value={leadInfo.name} onChange={(e) => setLeadInfo({ ...leadInfo, name: e.target.value })} style={{ padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }} />
-                    <input type="tel" required placeholder="Mobile Number *" value={leadInfo.phone} onChange={(e) => setLeadInfo({ ...leadInfo, phone: e.target.value })} style={{ padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }} />
-                    <input type="email" placeholder="Email (optional)" value={leadInfo.email} onChange={(e) => setLeadInfo({ ...leadInfo, email: e.target.value })} style={{ padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-secondary)', color: 'var(--text-primary)' }} />
-                    <button type="submit" className="btn-primary" style={{ borderRadius: '10px', fontWeight: 700, fontSize: '13px', padding: '10px' }}>Generate Roadmap</button>
+              {/* ── CONTACT FORM — required before roadmap generates ── */}
+              {showLeadForm && !roadmapResult && (
+                <div id="ai-lead-form" style={{ background: 'linear-gradient(135deg,rgba(229,57,53,0.06),rgba(200,164,94,0.04))', border: '2px solid var(--primary)', borderRadius: '18px', padding: '20px', marginBottom: '18px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                    <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(229,57,53,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <ion-icon name="person-outline" style={{ fontSize: '18px', color: 'var(--primary)' }}></ion-icon>
+                    </div>
+                    <div>
+                      <h4 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Your Free Roadmap: <span style={{ color: 'var(--primary)' }}>{selectedCourse}</span></h4>
+                      <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-muted)' }}>Fill your details — mentor will send your personal 5-month plan</p>
+                    </div>
+                  </div>
+                  <form id="lead-contact-form" onSubmit={handleLeadSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '14px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(150px,1fr))', gap: '10px' }}>
+                      <div style={{ position: 'relative' }}>
+                        <ion-icon name="person-outline" style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--text-muted)', pointerEvents: 'none' }}></ion-icon>
+                        <input type="text" required placeholder="Full Name *" value={leadInfo.name} onChange={(e) => setLeadInfo({ ...leadInfo, name: e.target.value })} aria-label="Full Name" style={{ width: '100%', padding: '11px 12px 11px 32px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-card)', color: 'var(--text-primary)', boxSizing: 'border-box' }} />
+                      </div>
+                      <div style={{ position: 'relative' }}>
+                        <ion-icon name="call-outline" style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--text-muted)', pointerEvents: 'none' }}></ion-icon>
+                        <input type="tel" required placeholder="Mobile Number *" value={leadInfo.phone} onChange={(e) => setLeadInfo({ ...leadInfo, phone: e.target.value })} aria-label="Mobile Number" style={{ width: '100%', padding: '11px 12px 11px 32px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-card)', color: 'var(--text-primary)', boxSizing: 'border-box' }} />
+                      </div>
+                      <div style={{ position: 'relative' }}>
+                        <ion-icon name="mail-outline" style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', fontSize: '14px', color: 'var(--text-muted)', pointerEvents: 'none' }}></ion-icon>
+                        <input type="email" placeholder="Email (optional)" value={leadInfo.email} onChange={(e) => setLeadInfo({ ...leadInfo, email: e.target.value })} aria-label="Email Address" style={{ width: '100%', padding: '11px 12px 11px 32px', borderRadius: '10px', border: '1px solid var(--border-light)', fontSize: '13px', background: 'var(--bg-card)', color: 'var(--text-primary)', boxSizing: 'border-box' }} />
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <button type="submit" className="btn-primary" style={{ flex: 1, minWidth: '140px', borderRadius: '10px', fontWeight: 700, fontSize: '13px', padding: '11px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+                        <ion-icon name="send-outline"></ion-icon> Send My Roadmap
+                      </button>
+                      <button type="button" onClick={() => setShowLeadForm(false)} style={{ padding: '11px 14px', borderRadius: '10px', border: '1px solid var(--border-light)', background: 'transparent', color: 'var(--text-secondary)', fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <ion-icon name="close-outline"></ion-icon> Cancel
+                      </button>
+                    </div>
                   </form>
                 </div>
               )}
 
-              {/* Roadmap Result */}
+              {/* Roadmap Success */}
               {roadmapResult && (
-                <div style={{ background: 'var(--bg-secondary)', border: '1px solid rgba(76,175,80,0.3)', borderRadius: '20px', padding: '24px', marginBottom: '24px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                    <ion-icon name="checkmark-circle" style={{ fontSize: '24px', color: '#4caf50' }}></ion-icon>
-                    <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 800 }}>Roadmap Ready! ({roadmapResult.leadId})</h4>
+                <div style={{ background: 'var(--bg-secondary)', border: '1px solid rgba(34,197,94,0.25)', borderRadius: '18px', padding: '20px', marginBottom: '18px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                    <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <ion-icon name="checkmark-circle-outline" style={{ fontSize: '20px', color: '#22c55e' }}></ion-icon>
+                    </div>
+                    <div>
+                      <h4 style={{ margin: 0, fontSize: '15px', fontWeight: 800 }}>Your Roadmap is Ready!</h4>
+                      <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-muted)' }}>Ref: {roadmapResult.leadId} — Our team will contact you shortly</p>
+                    </div>
                   </div>
-                  <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '16px' }}>{roadmapResult.message} Our team will contact you shortly.</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '14px', paddingLeft: '44px' }}>{roadmapResult.message}</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {roadmapResult.roadmap.map((item, i) => (
-                      <div key={i} style={{ padding: '12px 16px', background: 'var(--bg-card)', borderRadius: '10px', borderLeft: '4px solid var(--primary)' }}>
-                        <strong style={{ fontSize: '13px', color: 'var(--primary)' }}>{item.month}: {item.title}</strong>
-                        <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--text-secondary)' }}>{item.desc}</p>
+                      <div key={i} style={{ display: 'flex', gap: '10px', padding: '10px 12px', background: 'var(--bg-card)', borderRadius: '10px', border: '1px solid var(--border-light)', borderLeft: '3px solid var(--primary)' }}>
+                        <div style={{ minWidth: '24px', height: '24px', borderRadius: '50%', background: 'rgba(229,57,53,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--primary)' }}>{i + 1}</span>
+                        </div>
+                        <div>
+                          <strong style={{ fontSize: '12px', color: 'var(--text-primary)', display: 'block', marginBottom: '2px' }}>{item.month}: {item.title}</strong>
+                          <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>{item.desc}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Reset button */}
-              <div style={{ textAlign: 'center', marginTop: '8px' }}>
-                <button className="btn-secondary" onClick={() => { setAiResult(null); setGoalInput(''); setShowLeadForm(false); setRoadmapResult(null); }} style={{ borderRadius: '12px', fontSize: '13px', padding: '9px 22px' }}>
-                  ↩ Start New Search
-                </button>
-              </div>
             </div>
           )}
-
         </div>
       </div>
     </section>
