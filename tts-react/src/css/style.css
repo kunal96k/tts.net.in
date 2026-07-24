@@ -594,20 +594,45 @@ ul {
     gap: 8px;
     padding: 15px 36px;
     background: var(--gradient-gold);
+    background-size: 200% 200%;
+    background-position: 0% 50%;
     color: var(--text-white);
     border-radius: var(--radius-full);
     font-weight: 600;
     font-size: 15px;
     border: none;
     cursor: pointer;
-    transition: var(--transition);
+    transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.2s ease;
     box-shadow: var(--shadow-gold);
     letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    border-radius: inherit;
+    transition: background 0.25s ease;
+    pointer-events: none;
 }
 
 .btn-primary:hover {
-    background: var(--primary-dark);
-    box-shadow: var(--shadow-md);
+    background-position: 100% 50%;
+    box-shadow: 0 12px 36px rgba(229, 57, 53, 0.38), 0 4px 12px rgba(229, 57, 53, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-primary:hover::after {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.btn-primary:active {
+    transform: translateY(0px);
+    box-shadow: var(--shadow-gold);
 }
 
 .btn-secondary {
@@ -622,13 +647,21 @@ ul {
     font-size: 15px;
     border: 2px solid var(--border-medium);
     cursor: pointer;
-    transition: var(--transition);
+    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    text-decoration: none;
 }
 
 .btn-secondary:hover {
     border-color: var(--gold);
     color: var(--gold-dark);
-    background: rgba(200, 164, 94, 0.04);
+    background: rgba(229, 57, 53, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 57, 53, 0.12);
+}
+
+.btn-secondary:active {
+    transform: translateY(0px);
+    box-shadow: none;
 }
 
 /* Hero Visual / Stats Card */
