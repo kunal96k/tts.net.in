@@ -1,156 +1,223 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLightbox } from '../components/LightboxContext';
+
+const COURSE_DATA = {
+  java: {
+    tag: 'Certification Program',
+    name: 'Java Full Stack Development',
+    icon: 'code-slash-outline',
+    iconColor: '#E53935',
+    duration: '6 Months',
+    fees: '₹40,000',
+    rating: '4.8 ★',
+    skills: ['Java Core & OOP', 'Spring Boot', 'Hibernate / JPA', 'React JS', 'REST APIs', 'MySQL', 'Git & GitHub', 'Microservices'],
+    desc: 'Master end-to-end development with Java, Spring Boot, and React. 100% placement support with live project training.',
+  },
+  python: {
+    tag: 'Certification Program',
+    name: 'Python Full Stack Development',
+    icon: 'logo-python',
+    iconColor: '#2196F3',
+    duration: '6 Months',
+    fees: '₹35,000',
+    rating: '4.7 ★',
+    skills: ['Python 3', 'Django / Flask', 'React JS', 'PostgreSQL', 'REST APIs', 'Data Structures', 'Git & GitHub', 'AI Integration'],
+    desc: 'Build robust applications using Python, Django, and modern front-end frameworks with AI integration.',
+  },
+  web: {
+    tag: 'Job-Ready Program',
+    name: 'Web Development Bootcamp',
+    icon: 'globe-outline',
+    iconColor: '#43A047',
+    duration: '4 Months',
+    fees: '₹18,000',
+    rating: '4.6 ★',
+    skills: ['HTML5 & CSS3', 'JavaScript ES6+', 'React JS', 'Node.js', 'MongoDB', 'Responsive Design', 'Bootstrap / Tailwind', 'Git & Deployment'],
+    desc: 'Build stunning responsive websites. From HTML/CSS to React & Node.js — fully job-ready curriculum.',
+  },
+  datascience: {
+    tag: 'Advanced Program',
+    name: 'Data Science & AI',
+    icon: 'hardware-chip-outline',
+    iconColor: '#FF9800',
+    duration: '6 Months',
+    fees: '₹45,000',
+    rating: '4.9 ★',
+    skills: ['Python', 'Statistics & Math', 'Machine Learning', 'Deep Learning', 'Power BI', 'Tableau', 'NLP Basics', 'TensorFlow / Keras'],
+    desc: 'Unlock insights with Python, Machine Learning, and Power BI. Learn from industry experts with live data projects.',
+  },
+  devops: {
+    tag: 'Professional Certification',
+    name: 'DevOps & Cloud Computing',
+    icon: 'cloud-outline',
+    iconColor: '#00897B',
+    duration: '4 Months',
+    fees: '₹30,000',
+    rating: '4.7 ★',
+    skills: ['Linux & Shell Scripting', 'Docker', 'Kubernetes', 'AWS / Azure', 'CI/CD Pipelines', 'Jenkins', 'Terraform', 'Monitoring Tools'],
+    desc: 'Master CI/CD pipelines, Docker, Kubernetes, and AWS — the most in-demand DevOps & Cloud skill set.',
+  },
+  digitalmarketing: {
+    tag: 'Professional Diploma',
+    name: 'Digital Marketing',
+    icon: 'megaphone-outline',
+    iconColor: '#8E24AA',
+    duration: '3 Months',
+    fees: '₹12,000',
+    rating: '4.5 ★',
+    skills: ['SEO & SEM', 'Google Ads', 'Social Media Marketing', 'Content Strategy', 'Email Marketing', 'Google Analytics', 'Canva & Design', 'Affiliate Marketing'],
+    desc: 'SEO, Social Media, Google Ads and Content Strategy — the complete digital growth toolkit.',
+  },
+};
 
 export default function Courses() {
-  const { openLightbox } = useLightbox();
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
-    document.title = "Courses | TechnoKraft - Best IT Courses Institute in Nashik";
+    document.title = 'Courses | TechnoKraft - Best IT Courses Institute in Nashik';
   }, []);
+
+  // Prevent body scroll when modal open
+  useEffect(() => {
+    if (selectedCourse) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedCourse]);
+
+  const course = selectedCourse ? COURSE_DATA[selectedCourse] : null;
 
   return (
     <main id="main-content">
-      
 
-    {/* Hero Section */}
-    <section className="page-hero">
+      {/* Hero */}
+      <section className="page-hero">
         <div className="container">
-            <div className="section-label reveal-smooth">Skill Up Excellence</div>
-            <h1 className="reveal-scale">Professional <span className="shimmer-text">IT Courses</span></h1>
-            <p className="reveal-smooth">Become an industry-ready professional with our job-oriented curriculum and hands-on projects.</p>
+          <div className="section-label reveal-smooth">Skill Up Excellence</div>
+          <h1 className="reveal-scale">Professional <span className="shimmer-text">IT Courses</span></h1>
+          <p className="reveal-smooth">Become an industry-ready professional with our job-oriented curriculum and hands-on projects.</p>
         </div>
-    </section>
+      </section>
 
-    {/* AI Suggestion Box — MOVED TO TOP */}
-    <section className="ai-suggestion-section" id="ai-suggestion" style={{paddingTop: '60px', paddingBottom: '0'}}>
+      {/* All Courses Grid */}
+      <section className="services-section reveal-smooth">
         <div className="container">
-            <div className="suggestion-card-wrapper reveal-scale">
-                <div className="section-header">
-                    <div className="section-label reveal-smooth">AI-Powered Recommendations</div>
-                    <h2 className="section-title">Not Sure What to Learn?</h2>
-                    <p className="section-subtitle">Tell us your goal and we'll suggest the best course for you.</p>
-                </div>
-                <div className="suggestion-form">
-                    <div className="input-container">
-                        <textarea id="user-goal" className="suggestion-textarea" placeholder="Example: I want to learn web development from scratch or I want a job in data science"></textarea>
-                    </div>
-                    <button id="get-suggestions-btn" className="btn-primary"><span>Get AI Suggestions</span><ion-icon name="sparkles-outline"></ion-icon></button>
-                </div>
-                <div id="suggestions-results" className="suggestions-results"></div>
-            </div>
-        </div>
-    </section>
+          <div className="section-header reveal-scale">
+            <div className="section-label reveal-smooth">Our Specialized Programs</div>
+            <h2 className="section-title">Explore <span className="text-primary">All Courses</span></h2>
+            <p className="section-subtitle">Choose from 20+ industry-aligned programs designed for real-world career success.</p>
+          </div>
 
-    {/* All Courses Grid */}
-    <section className="services-section reveal-smooth">
-        <div className="container">
-            <div className="section-header reveal-scale">
-                <div className="section-label reveal-smooth">Our Specialized Programs</div>
-                <h2 className="section-title">Explore <span className="text-primary">All Courses</span></h2>
-            </div>
-            <div className="services-grid">
-                <div className="service-card reveal-smooth" data-course="java">
-                    <div className="service-icon red"><ion-icon name="code-slash-outline"></ion-icon></div>
-                    <h3>Java Full Stack</h3>
-                    <p>Master end-to-end development with Java, Spring Boot, and React. 100% placement support.</p>
-                    <div className="card-footer-row">
-                        <span className="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 6 Months</span>
-                        <button className="btn-view-details-card" onClick={() => {openCourseModal('java')}}>View Details</button>
-                    </div>
+          <div className="services-grid">
+            {Object.entries(COURSE_DATA).map(([key, c]) => (
+              <div className="service-card reveal-smooth" key={key}>
+                <div className="service-icon" style={{ background: `${c.iconColor}18`, color: c.iconColor }}>
+                  <ion-icon name={c.icon}></ion-icon>
                 </div>
-                <div className="service-card reveal-smooth" data-course="python">
-                    <div className="service-icon blue"><ion-icon name="logo-python"></ion-icon></div>
-                    <h3>Python Full Stack</h3>
-                    <p>Build robust applications using Python, Django, and modern front-end frameworks with AI integration.</p>
-                    <div className="card-footer-row">
-                        <span className="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 6 Months</span>
-                        <button className="btn-view-details-card" onClick={() => {openCourseModal('python')}}>View Details</button>
-                    </div>
+                <h3>{c.name}</h3>
+                <p>{c.desc}</p>
+                <div className="card-footer-row">
+                  <span className="card-duration-tag">
+                    <ion-icon name="time-outline"></ion-icon> {c.duration}
+                  </span>
+                  <button
+                    className="btn-view-details-card"
+                    onClick={() => setSelectedCourse(key)}
+                    aria-label={`View details for ${c.name}`}
+                  >
+                    View Details
+                  </button>
                 </div>
-                <div className="service-card reveal-smooth" data-course="web">
-                    <div className="service-icon green"><ion-icon name="globe-outline"></ion-icon></div>
-                    <h3>Web Development</h3>
-                    <p>Build stunning responsive websites using modern frameworks. From HTML/CSS to React & Node.js.</p>
-                    <div className="card-footer-row">
-                        <span className="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 4 Months</span>
-                        <button className="btn-view-details-card" onClick={() => {openCourseModal('web')}}>View Details</button>
-                    </div>
-                </div>
-                <div className="service-card reveal-smooth" data-course="datascience">
-                    <div className="service-icon gold"><ion-icon name="hardware-chip-outline"></ion-icon></div>
-                    <h3>Data Science & AI</h3>
-                    <p>Unlock insights with Python, Machine Learning, and Power BI. Learn from industry experts.</p>
-                    <div className="card-footer-row">
-                        <span className="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 6 Months</span>
-                        <button className="btn-view-details-card" onClick={() => {openCourseModal('datascience')}}>View Details</button>
-                    </div>
-                </div>
-                <div className="service-card reveal-smooth" data-course="devops">
-                    <div className="service-icon teal"><ion-icon name="cloud-outline"></ion-icon></div>
-                    <h3>DevOps & Cloud</h3>
-                    <p>Master CI/CD pipelines, Docker, Kubernetes, and AWS. Industry's most in-demand skill set.</p>
-                    <div className="card-footer-row">
-                        <span className="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 4 Months</span>
-                        <button className="btn-view-details-card" onClick={() => {openCourseModal('devops')}}>View Details</button>
-                    </div>
-                </div>
-                <div className="service-card reveal-smooth" data-course="digitalmarketing">
-                    <div className="service-icon purple"><ion-icon name="megaphone-outline"></ion-icon></div>
-                    <h3>Digital Marketing</h3>
-                    <p>SEO, Social Media, Google Ads and Content Strategy — the complete digital growth toolkit.</p>
-                    <div className="card-footer-row">
-                        <span className="card-duration-tag"><ion-icon name="time-outline"></ion-icon> 3 Months</span>
-                        <button className="btn-view-details-card" onClick={() => {openCourseModal('digitalmarketing')}}>View Details</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+              </div>
+            ))}
+          </div>
 
-    {/* Course Detail Modal */}
-    <div className="course-modal-overlay" id="courseModalOverlay" onClick={() => {closeCourseModal(event)}}>
-        <div className="course-modal" id="courseModal">
+          {/* CTA */}
+          <div className="section-cta" style={{ marginTop: '40px' }}>
+            <Link to="/contact" className="btn-primary">
+              <ion-icon name="call-outline"></ion-icon> Book Free Demo Class
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Course Detail Modal — React controlled */}
+      {selectedCourse && course && (
+        <div
+          className="course-modal-overlay active"
+          onClick={(e) => { if (e.target.classList.contains('course-modal-overlay')) setSelectedCourse(null); }}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Course details for ${course.name}`}
+        >
+          <div className="course-modal">
+            {/* Header */}
             <div className="modal-header-bar">
-                <div className="modal-icon-box" id="modalIconBox"><ion-icon id="modalIcon" name="code-slash-outline"></ion-icon></div>
-                <div className="modal-title-group">
-                    <div className="modal-course-tag" id="modalTag">Certification Program</div>
-                    <h3 className="modal-course-name" id="modalTitle">Java Full Stack</h3>
-                </div>
-                <button className="modal-close-btn" onClick={() => {closeModal()}}><ion-icon name="close-outline"></ion-icon></button>
+              <div className="modal-icon-box" style={{ background: `${course.iconColor}18`, color: course.iconColor }}>
+                <ion-icon name={course.icon}></ion-icon>
+              </div>
+              <div className="modal-title-group">
+                <div className="modal-course-tag">{course.tag}</div>
+                <h3 className="modal-course-name">{course.name}</h3>
+              </div>
+              <button
+                className="modal-close-btn"
+                onClick={() => setSelectedCourse(null)}
+                aria-label="Close modal"
+              >
+                <ion-icon name="close-outline"></ion-icon>
+              </button>
             </div>
-            <div className="modal-body">
-                <div className="modal-highlight-row">
-                    <div className="modal-highlight">
-                        <ion-icon name="time-outline" style={{color: 'var(--primary)'}}></ion-icon>
-                        <div className="h-label">Duration</div>
-                        <div className="h-value" id="modalDuration">6 Months</div>
-                    </div>
-                    <div className="modal-highlight">
-                        <ion-icon name="cash-outline" style={{color: '#4CAF50'}}></ion-icon>
-                        <div className="h-label">Course Fees</div>
-                        <div className="h-value" id="modalFees">₹40,000</div>
-                    </div>
-                    <div className="modal-highlight">
-                        <ion-icon name="star" style={{color: '#FFC107'}}></ion-icon>
-                        <div className="h-label">Rating</div>
-                        <div className="h-value" id="modalRating">4.8 ★</div>
-                    </div>
-                </div>
-                <div className="modal-what-learn">
-                    <h4>What You'll Learn</h4>
-                    <div className="modal-skills" id="modalSkills"></div>
-                </div>
-                <div className="modal-actions">
-                    <Link  to="/contact" className="btn-primary">Enroll Now</Link>
-                    <Link  to="/contact" className="btn-secondary">Free Counseling</Link>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    {/* Footer */}
-    
+            {/* Body */}
+            <div className="modal-body">
+              {/* Key highlights */}
+              <div className="modal-highlight-row">
+                <div className="modal-highlight">
+                  <ion-icon name="time-outline" style={{ color: 'var(--primary)' }}></ion-icon>
+                  <div className="h-label">Duration</div>
+                  <div className="h-value">{course.duration}</div>
+                </div>
+                <div className="modal-highlight">
+                  <ion-icon name="cash-outline" style={{ color: '#4CAF50' }}></ion-icon>
+                  <div className="h-label">Course Fees</div>
+                  <div className="h-value">{course.fees}</div>
+                </div>
+                <div className="modal-highlight">
+                  <ion-icon name="star" style={{ color: '#FFC107' }}></ion-icon>
+                  <div className="h-label">Rating</div>
+                  <div className="h-value">{course.rating}</div>
+                </div>
+              </div>
+
+              {/* What You'll Learn */}
+              <div className="modal-what-learn">
+                <h4>What You'll Learn</h4>
+                <div className="modal-skills">
+                  {course.skills.map((skill, i) => (
+                    <span key={i} className="modal-skill-badge">
+                      <ion-icon name="checkmark-outline"></ion-icon> {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="modal-actions">
+                <Link to="/contact" className="btn-primary" onClick={() => setSelectedCourse(null)}>
+                  <ion-icon name="school-outline"></ion-icon> Enroll Now
+                </Link>
+                <Link to="/contact" className="btn-secondary" onClick={() => setSelectedCourse(null)}>
+                  <ion-icon name="call-outline"></ion-icon> Free Counseling
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }

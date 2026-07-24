@@ -252,6 +252,110 @@ export async function getAiRecommendations({ goal, experience, education, budget
 }
 
 /**
+ * Course-Specific Roadmap Templates
+ */
+function generateCourseRoadmap(courseName) {
+  const cn = (courseName || '').toUpperCase();
+
+  // Java / Spring Boot / Backend
+  if (cn.includes('JAVA') || cn.includes('SPRING BOOT') || cn.includes('BACKEND JAVA')) {
+    return [
+      { month: 'Month 1', title: 'Java Core & OOP', desc: 'Master Java fundamentals: syntax, OOP concepts (Inheritance, Polymorphism), Collections, Exception Handling, and JDBC.' },
+      { month: 'Month 2', title: 'Spring Boot & REST APIs', desc: 'Build production-ready REST APIs with Spring Boot, Spring MVC, Spring Security, and JPA/Hibernate with MySQL.' },
+      { month: 'Month 3', title: 'React JS Frontend', desc: 'Connect Java backend to a React JS UI — state management, Axios, hooks, and component-based architecture.' },
+      { month: 'Month 4', title: 'Capstone Live Project', desc: 'Build a full end-to-end Java Full Stack project: E-commerce / Hospital Management / Banking system deployed on AWS.' },
+      { month: 'Month 5', title: 'Placement Preparation', desc: 'DSA practice, System Design basics, ATS resume, mock interviews with TechnoKraft corporate hiring partners.' },
+    ];
+  }
+
+  // Python / Django / Flask
+  if (cn.includes('PYTHON') || cn.includes('DJANGO') || cn.includes('FLASK')) {
+    return [
+      { month: 'Month 1', title: 'Python 3 Fundamentals', desc: 'Variables, control flow, functions, OOP, file handling, libraries (NumPy, Pandas basics), and virtual environments.' },
+      { month: 'Month 2', title: 'Django / Flask Backend', desc: 'REST API development with Django REST Framework, authentication (JWT), PostgreSQL/SQLite integration, and deployment.' },
+      { month: 'Month 3', title: 'React JS & API Integration', desc: 'Build responsive frontends with React, connect to Django APIs, manage state with Redux, and deploy to Heroku/Vercel.' },
+      { month: 'Month 4', title: 'AI & Data Integration Project', desc: 'Add ML features to your web app: integrate a trained Python model into a Django backend as a live prediction API.' },
+      { month: 'Month 5', title: 'Portfolio & Placement Drive', desc: 'Finalize GitHub portfolio, ATS resume, mock HR + technical interviews, and attend TechnoKraft campus placement drives.' },
+    ];
+  }
+
+  // Data Science / ML / AI
+  if (cn.includes('DATA SCIENCE') || cn.includes('MACHINE LEARNING') || cn.includes('ARTIFICIAL INTELLIGENCE') || cn.includes('AI CRASH')) {
+    return [
+      { month: 'Month 1', title: 'Python & Statistics', desc: 'Python for data analysis (NumPy, Pandas, Matplotlib), probability, descriptive statistics, and data cleaning techniques.' },
+      { month: 'Month 2', title: 'Machine Learning Algorithms', desc: 'Supervised & unsupervised learning, Regression, Classification, Clustering, Decision Trees, and Random Forests with Scikit-Learn.' },
+      { month: 'Month 3', title: 'Deep Learning & NLP', desc: 'Neural networks, CNNs, RNNs with TensorFlow/Keras. NLP basics: tokenization, sentiment analysis, and text classification.' },
+      { month: 'Month 4', title: 'BI Tools & Model Deployment', desc: 'Power BI / Tableau dashboards, model deployment with Flask APIs, and integration with cloud (AWS SageMaker / Azure ML).' },
+      { month: 'Month 5', title: 'Capstone DS Project & Placement', desc: 'End-to-end ML project from data collection to deployed model. Resume, LinkedIn optimization, and mock Data Science interviews.' },
+    ];
+  }
+
+  // Web Development / HTML / CSS / React / MERN
+  if (cn.includes('WEB DEV') || cn.includes('MERN') || cn.includes('REACT') || cn.includes('ANGULAR') || cn.includes('JAVASCRIPT')) {
+    return [
+      { month: 'Month 1', title: 'HTML5, CSS3 & JavaScript', desc: 'Semantic HTML, Flexbox/Grid, ES6+ JS, DOM manipulation, events, and responsive design with media queries.' },
+      { month: 'Month 2', title: 'React JS & State Management', desc: 'Components, hooks (useState, useEffect), React Router, Redux Toolkit, and consuming REST APIs with Axios/Fetch.' },
+      { month: 'Month 3', title: 'Node.js & Express Backend', desc: 'Build REST APIs with Node + Express, MongoDB with Mongoose, authentication (JWT), and MVC architecture.' },
+      { month: 'Month 4', title: 'Full Stack Live Project', desc: 'Build and deploy a MERN stack app (E-Commerce / Blog Platform / Portfolio SaaS) with CI/CD using Vercel + Railway.' },
+      { month: 'Month 5', title: 'Portfolio, DSA & Placement', desc: 'Problem solving (LeetCode Easy/Medium), system design basics, GitHub portfolio review, and mock technical interviews.' },
+    ];
+  }
+
+  // Networking / CCNA / Cisco
+  if (cn.includes('CCNA') || cn.includes('NETWORK') || cn.includes('CISCO') || cn.includes('CCNP')) {
+    return [
+      { month: 'Month 1', title: 'Networking Fundamentals', desc: 'OSI & TCP/IP models, IP addressing, subnetting, VLSM, routing concepts, and network hardware (routers, switches).' },
+      { month: 'Month 2', title: 'Cisco IOS & Routing Protocols', desc: 'Configure Cisco routers/switches in Packet Tracer, OSPF, EIGRP, BGP basics, VLANs, STP, and inter-VLAN routing.' },
+      { month: 'Month 3', title: 'WAN, VPN & Security Basics', desc: 'WAN technologies, VPN setup, ACLs, firewall configuration, NAT/PAT, and basic network security hardening.' },
+      { month: 'Month 4', title: 'Lab Simulations & Real Hardware', desc: 'Hands-on lab sessions with physical Cisco hardware, troubleshooting scenarios, and enterprise network design exercises.' },
+      { month: 'Month 5', title: 'CCNA Exam Prep & Certification', desc: 'Full CCNA 200-301 mock tests, exam strategies, TechnoKraft certification, and placement in networking roles.' },
+    ];
+  }
+
+  // Cyber Security / Ethical Hacking
+  if (cn.includes('CYBER') || cn.includes('ETHICAL HACK') || cn.includes('PENETRATION') || cn.includes('SECURITY')) {
+    return [
+      { month: 'Month 1', title: 'Linux & Networking for Security', desc: 'Linux command line mastery, network protocols, Wireshark, TCP/IP analysis, and setting up Kali Linux environment.' },
+      { month: 'Month 2', title: 'Ethical Hacking Techniques', desc: 'Footprinting, reconnaissance, scanning (Nmap), vulnerability assessment, exploitation basics with Metasploit Framework.' },
+      { month: 'Month 3', title: 'Web App & Network Pentesting', desc: 'OWASP Top 10, SQL Injection, XSS, CSRF, Burp Suite, and wireless network penetration testing methodologies.' },
+      { month: 'Month 4', title: 'SOC, SIEM & Incident Response', desc: 'Security Operations Center workflow, SIEM tools (Splunk), log analysis, digital forensics, and malware analysis basics.' },
+      { month: 'Month 5', title: 'Certification & Career Placement', desc: 'CEH / CompTIA Security+ exam preparation, CTF challenges, bug bounty strategies, and placement in security roles.' },
+    ];
+  }
+
+  // Cloud / DevOps / AWS / Docker
+  if (cn.includes('CLOUD') || cn.includes('DEVOPS') || cn.includes('AWS') || cn.includes('DOCKER') || cn.includes('KUBERNETES')) {
+    return [
+      { month: 'Month 1', title: 'Linux & Shell Scripting', desc: 'Linux administration, bash scripting, process management, cron jobs, and SSH for remote server management.' },
+      { month: 'Month 2', title: 'Docker & Containerization', desc: 'Docker architecture, images, containers, Docker Compose, multi-stage builds, and container registry management.' },
+      { month: 'Month 3', title: 'Kubernetes & CI/CD', desc: 'K8s cluster setup, pods, deployments, services, Helm charts, Jenkins / GitHub Actions CI/CD pipelines end-to-end.' },
+      { month: 'Month 4', title: 'AWS / Azure Cloud Services', desc: 'EC2, S3, RDS, Lambda, IAM, VPC, CloudFormation / Terraform infrastructure as code, and cloud cost management.' },
+      { month: 'Month 5', title: 'Certification & Placement', desc: 'AWS Solutions Architect Associate / Azure AZ-900 exam prep, live infrastructure project, and DevOps role placement.' },
+    ];
+  }
+
+  // Digital Marketing
+  if (cn.includes('DIGITAL MARKETING') || cn.includes('SEO') || cn.includes('SOCIAL MEDIA')) {
+    return [
+      { month: 'Month 1', title: 'SEO & Content Marketing', desc: 'On-page & off-page SEO, keyword research (Ahrefs/SEMrush), content strategy, blog writing, and Google Search Console.' },
+      { month: 'Month 2', title: 'Google Ads & Analytics', desc: 'Google Ads campaigns (Search, Display, Shopping), PPC optimization, Google Analytics 4 setup and conversion tracking.' },
+      { month: 'Month 3', title: 'Social Media & Email Marketing', desc: 'Meta Ads Manager, Instagram/LinkedIn marketing, email automation (Mailchimp), and influencer collaboration strategies.' },
+      { month: 'Month 4', title: 'Live Campaign & Freelancing', desc: 'Run a real paid campaign with ₹5000 ad budget, Canva design, brand strategy project, and Fiverr/Upwork profile setup.' },
+      { month: 'Month 5', title: 'Portfolio & Agency Placement', desc: 'Build a digital marketing portfolio, Google/Meta certification prep, and placement assistance with marketing agencies.' },
+    ];
+  }
+
+  // Default generic (fallback)
+  return [
+    { month: 'Month 1', title: 'Fundamentals & Core Concepts', desc: `Learn core theory, tools, and environment setup for ${courseName}. Build a solid foundation with hands-on exercises.` },
+    { month: 'Month 2', title: 'Practical Skills & Frameworks', desc: 'Apply your knowledge through guided projects, exploring key frameworks and industry-standard practices.' },
+    { month: 'Month 3', title: 'Live Project Development', desc: 'Collaborate on a real-world capstone project matching industry standards, with mentor code reviews.' },
+    { month: 'Month 4', title: 'Portfolio & Professional Branding', desc: 'Build a GitHub portfolio, optimized LinkedIn profile, and ATS-ready resume with TechnoKraft career support.' },
+    { month: 'Month 5', title: 'Mock Interviews & Placement', desc: 'Technical and HR mock interviews with TechnoKraft hiring partners, plus campus placement drives and referrals.' },
+  ];
+}
+
+/**
  * Lead Collection & Personalized Roadmap Service
  */
 export async function saveLeadAndGenerateRoadmap(leadData) {
@@ -260,21 +364,16 @@ export async function saveLeadAndGenerateRoadmap(leadData) {
     await new Promise(resolve => setTimeout(resolve, 600));
   }
 
-  const leadId = "LEAD-" + Math.floor(100000 + Math.random() * 900000);
+  const leadId = 'LEAD-' + Math.floor(100000 + Math.random() * 900000);
   const dateStr = new Date().toISOString().split('T')[0];
+  const courseName = leadData.recommendedCourse || 'IT Specialization';
 
-  const roadmap = [
-    { month: "Month 1", title: "Foundations & Environment Setup", desc: `Master fundamental concepts, version control (Git), and core syntax for ${leadData.recommendedCourse || 'your chosen domain'}.` },
-    { month: "Month 2", title: "Frameworks & Deep Dive", desc: "Build modular applications, handle APIs, databases, and clean architecture practices." },
-    { month: "Month 3", title: "Real-World Live Project", desc: "Collaborate on a production-level capstone project matching IT company standards." },
-    { month: "Month 4", title: "ATS Resume & Portfolio Building", desc: "Craft an impressive GitHub portfolio, optimized resume, and LinkedIn professional branding." },
-    { month: "Month 5", title: "1-on-1 Mock Interviews & Campus Placement", desc: "Participate in intensive technical & HR mock interviews with corporate hiring partners." }
-  ];
+  const roadmap = generateCourseRoadmap(courseName);
 
   return {
     success: true,
     leadId,
-    message: "Thank you! Your free personalized career roadmap has been generated.",
+    message: `Your personalized ${courseName} roadmap has been generated. A TechnoKraft mentor will contact you shortly.`,
     createdAt: dateStr,
     roadmap
   };
