@@ -182,8 +182,8 @@ export default function Gallery() {
                  data-title="Interview Drive Activity"
                  data-desc="Students attending an interview-oriented activity designed to build confidence and career readiness."
                  data-tags="Interview,Workshop,Career Support,Students"
-                 data-img="images/Workshop2.jpg">
-                <div className="gal-thumb"><img src="images/Workshop2.jpg" alt="TechnoKraft interview drive activity" /></div>
+                 data-img="images/workshop.jpg">
+                <div className="gal-thumb"><img src="images/workshop.jpg" alt="TechnoKraft interview drive activity" /></div>
                 <div className="gal-cat-pill">Workshops</div>
                 <div className="gal-overlay">
                     <div className="gal-caption">Interview Drive Activity</div>
@@ -195,8 +195,8 @@ export default function Gallery() {
                  data-title="Student Placement Success"
                  data-desc="A placed student achievement image representing TechnoKraft student career success."
                  data-tags="Placement,Success,Placed Student,Career"
-                 data-img="images/Placement2.jpg">
-                <div className="gal-thumb"><img src="images/Placement2.jpg" alt="TechnoKraft placed student success" /></div>
+                 data-img="images/placement.jpg">
+                <div className="gal-thumb"><img src="images/placement.jpg" alt="TechnoKraft placed student success" /></div>
                 <div className="gal-cat-pill">Placements</div>
                 <div className="gal-overlay">
                     <div className="gal-caption">Student Placement Success</div>

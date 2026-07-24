@@ -139,6 +139,23 @@ export default function ScrollChoreography() {
 
   return (
     <>
+      {/* Background Glow Orbs */}
+      <div className="scene-enhancer">
+        <div className="glow-orb orb-1"></div>
+        <div className="glow-orb orb-2"></div>
+        <div className="glow-orb orb-3"></div>
+      </div>
+
+      {/* 3D Floating Background */}
+      <div className="scene-3d">
+        <div className="float-shape"></div>
+        <div className="float-shape"></div>
+        <div className="float-shape"></div>
+        <div className="float-shape"></div>
+        <div className="float-shape"></div>
+      </div>
+      <div className="grid-pattern"></div>
+
       {/* Scroll Progress Bar */}
       <div 
         className="scroll-progress" 
